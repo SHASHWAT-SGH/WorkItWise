@@ -1,6 +1,7 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Feather } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Header = () => {
   return (
@@ -14,6 +15,10 @@ const Header = () => {
           <Text style={[styles.textColor1, styles.userNameLetter]}>S</Text>
         </View>
       </View>
+      <LinearGradient
+        colors={["rgba(0,0,0,0.5)", "transparent"]}
+        style={styles.shadowOverlay}
+      />
     </View>
   );
 };
@@ -27,11 +32,11 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: "row",
     alignItems: "center",
-    // backgroundColor: "red",
+    marginTop: 0,
   },
   headerWrapper: {
-    flex: 0.07,
-
+    height: 60,
+    // backgroundColor: "red",
     justifyContent: "center",
     paddingLeft: 10,
     paddingRight: 10,
@@ -46,7 +51,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 8,
     backgroundColor: "#7f7fff",
-    marginLeft: 210,
+    marginLeft: "auto",
+    marginRight: 10,
   },
   userNameLetter: {
     flex: 1,
@@ -54,5 +60,13 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     textAlign: "center",
     textAlignVertical: "center",
+  },
+  shadowOverlay: {
+    position: "absolute",
+    bottom: -12,
+    left: 0,
+    right: 0,
+    zIndex: 10,
+    height: 17, // Adjust the height of the shadow as needed
   },
 });
