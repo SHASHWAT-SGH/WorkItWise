@@ -9,15 +9,16 @@ import WorkoutAnalytics from "../components/dashboard/WorkoutAnalytics";
 import WorkoutsPerWeek from "../components/dashboard/WorkoutsPerWeek";
 import WeeklyWorkloadDistribution from "../components/dashboard/WeeklyWorkloadDistribution";
 import DailyWorkloadDistribution from "../components/dashboard/DailyWorkloadDistribution";
+import MyCalendar from "../components/dashboard/MyCalendar";
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <ScrollView style={styles.scrollView}>
-        <MyDiary />
+        <MyDiary navigation={navigation} name="My Diary" />
+        <MyCalendar />
         <WorkoutAnalytics />
-        {/* <WorkoutsPerWeek /> */}
         <DailyWorkloadDistribution />
         <WeeklyWorkloadDistribution />
       </ScrollView>

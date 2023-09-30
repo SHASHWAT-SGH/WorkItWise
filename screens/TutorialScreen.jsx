@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tutorial from "../components/tutorials/Tutorial";
 import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -24,9 +24,13 @@ const data = [
   },
 ];
 
-const TutorialScreen = () => {
+const TutorialScreen = ({ navigation }) => {
   const [dataIndex, setDataIndex] = useState(0);
   const [skip, setSkip] = useState(false);
+
+  useEffect(() => {
+    skip ? navigation.navigate("dashboard") : null;
+  }, [skip]);
 
   return !skip ? (
     dataIndex < data.length ? (
@@ -38,11 +42,9 @@ const TutorialScreen = () => {
         setSkip={setSkip}
       />
     ) : (
-      <Dashboard />
+      setSkip(true)
     )
-  ) : (
-    <Dashboard />
-  );
+  ) : null;
 };
 
 export default TutorialScreen;

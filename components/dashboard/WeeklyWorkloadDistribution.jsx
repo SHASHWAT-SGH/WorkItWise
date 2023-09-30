@@ -45,7 +45,7 @@ const WeeklyWorkloadDistribution = () => {
     <View style={styles.container}>
       <WorkLoadPieChart pieData={pieData} />
       <View style={styles.headingContainer}>
-        <Text style={styles.heading}>Week wise division</Text>
+        <Text style={styles.heading}>This weeks workout</Text>
       </View>
     </View>
   );

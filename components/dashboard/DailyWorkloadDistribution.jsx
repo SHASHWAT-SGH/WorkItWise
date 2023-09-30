@@ -5,8 +5,8 @@ import WorkLoadPieChart from "./WorkLoadPieChart";
 const pieData = [
   {
     name: "Seoul",
-    population: 21500000,
-    color: "rgba(131, 167, 234, 1)",
+    population: 21000,
+    color: "rgba(131, 0, 234, 1)",
     // legendFontColor: "#7F7F7F",
     // legendFontSize: 15,
   },
@@ -44,7 +44,7 @@ const DailyWorkloadDistribution = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headingContainer}>
-        <Text style={styles.heading}>Daily workout division</Text>
+        <Text style={styles.heading}>Today's workout</Text>
       </View>
       <WorkLoadPieChart pieData={pieData} />
     </View>
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingLeft: 10,
-    backgroundColor: "green",
   },
   heading: {
     fontSize: 26,
