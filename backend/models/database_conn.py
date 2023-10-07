@@ -28,6 +28,3 @@ class Database_conn:
     
     def get_db_conn(self):
         return __mydb
-        
-
-    

@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Annotated
 from datetime import datetime, timedelta
 #hashing
@@ -9,7 +10,6 @@ from schemas import auth_schema
 from models.database_conn import Database_conn
 from models.user_query import User_query
 #jwt
-from fastapi.security import  OAuth2PasswordRequestForm
 from utils import JWT
 
 # --------------------------------------------------------------------------------
@@ -42,30 +42,31 @@ def signup(request: auth_schema.User_schema):
     return {"success":True, "data":request}
 
 # login
-@app.post("/login")
-def login(request: auth_schema.User_login_schema):
+@app.post("/login", response_model=auth_schema.Token)
+def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    hashed_pass_from_db = user_queries.get_user(request.email)
+    hashed_pass_from_db = user_queries.get_user_password(form_data.username)
     if hashed_pass_from_db == None:
-        return{"success":False}
-    match = pwd_context.verify(request.password, hashed_pass_from_db)
-    if(match):
-        return{"success":True}
-    else:
-        return{"success":False}
-
-@app.post("/token", response_model=auth_schema.Token)
-async def login_for_access_token(
-    form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
-):
-    user = user_queries.get_username(form_data.username)
-    if not user:
+        # user not found
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Incorrect username",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token = JWT.create_access_token(
-        data={"sub": user}
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
+    match = pwd_context.verify(form_data.password, hashed_pass_from_db)
+    if(match):
+        access_token = JWT.create_access_token(
+        data={"sub": form_data.username}
+        )
+        return {"access_token": access_token, "token_type": "bearer"}
+    else:
+        # Incorrect password
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+@app.get("/hidden")
+def hidden(current_user: auth_schema.Temp_Schema = Depends(JWT.validate_jwt_and_get_current_user)):
+    return current_user

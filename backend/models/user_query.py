@@ -15,7 +15,7 @@ class User_query:
         __cursor.execute(sql, val)
         __mydb.commit()
     
-    def get_user(self, email):
+    def get_user_password(self, email):
         sql = f"SELECT USER_PASSWORD FROM USERS WHERE USER_EMAIL = '{email}'"
         __cursor.execute(sql)
         result = __cursor.fetchall()
@@ -24,13 +24,14 @@ class User_query:
         else:
             return result[0][0]
         
-    def get_username(self,email):
-        sql = f"SELECT USER_NAME FROM USERS WHERE USER_EMAIL = '{email}'"
+    def search_email(self,email):
+        sql = f"SELECT * FROM USERS WHERE USER_EMAIL = '{email}'"
         __cursor.execute(sql)
         result = __cursor.fetchall()
         if len(result)==0:
             return None
         else:
+            print(result[0][0])
             return result[0][0]
     
 
