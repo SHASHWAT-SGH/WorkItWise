@@ -1,10 +1,9 @@
 from pydantic import BaseModel
 
-
 class User_schema(BaseModel):
-    name: str
-    email: str
-    password: str
+    name:str | None = None
+    email:str | None = None
+    passowrd:str | None = None
 
 class User_login_schema(BaseModel):
     email: str
@@ -16,6 +15,5 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: str | None = None
+    password: str | None = None
 
-class Temp_Schema(BaseModel):
-    email:str
