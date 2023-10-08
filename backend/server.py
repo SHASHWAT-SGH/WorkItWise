@@ -72,6 +72,8 @@ def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
             headers={"WWW-Authenticate": "Bearer"},
         )
 
+# ----------- protected end points ---------------------
+
 @app.get("/hidden", status_code=status.HTTP_200_OK)
 def hidden(current_user: schema.TokenData = Depends(jwt_utils.validate_jwt_and_get_current_user)):
     if current_user:
