@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
 from datetime import datetime, timedelta
+import json
 #hashing
 from passlib.context import CryptContext
 # importing schemas
@@ -9,6 +10,7 @@ from schemas import schema
 # importing modals and db items
 from models.database_conn import Database_conn
 from models.user_query import User_query
+from models.all_queries import All_queries
 #jwt
 from utils.JWT_utils import JWT_utils
 
@@ -28,6 +30,7 @@ except:
 db_cursor = db_conn.get_cursor()
 # initiate query object
 user_queries =  User_query(db_cursor, db_conn.get_db_conn())
+all_queries =  All_queries(db_cursor, db_conn.get_db_conn())
 # get jwt_utils object
 jwt_utils = JWT_utils()
 
@@ -80,3 +83,69 @@ def hidden(current_user: schema.TokenData = Depends(jwt_utils.validate_jwt_and_g
         return current_user
     else:
         return{"success":False}
+
+@app.get("/api/get/allexercisecategories",response_model=schema.Array_of_data_response ,status_code=status.HTTP_200_OK)
+def get_all_exercise_categories(current_user: schema.TokenData = Depends(jwt_utils.validate_jwt_and_get_current_user)):
+    if current_user:
+        result = all_queries.get_all_categories()
+        l=[]
+        for i in range(len(result)):
+            temp = schema.Exercise_category_and_img(category=result[i][0], image_url=result[i][1])
+            l.append(temp)
+        return schema.Array_of_data_response(data=l)
+    else:
+        pass
+
+@app.get("/api/get/exercisebycategory",response_model=schema.Array_of_data_response ,status_code=status.HTTP_200_OK)
+def get_exercise_by_category(category: str,current_user: schema.TokenData = Depends(jwt_utils.validate_jwt_and_get_current_user)):
+    
+    if current_user:
+        try:
+            result = all_queries.get_exercise_by_category(category)
+        except:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Invalid category",
+            )
+        l=[]
+        for i in range(len(result)):
+            temp = schema.Exercise_details(
+                EXERCISE_NAME=result[i][0],
+                BODY_PART=result[i][1],
+                EQUIPMENT=result[i][2],
+                ANIMATED_IMAGE_URL=result[i][3],
+                TARGET_MUSCLE=result[i][4],
+                SECONDARY_MUSCLES= json.loads(result[i][5]),
+                INSTRUCTIONS= json.loads(result[i][6])
+            )
+            l.append(temp)
+        return schema.Array_of_data_response(data=l)
+    else:
+        pass
+
+@app.get("/api/get/allexercises",response_model=schema.Array_of_data_response ,status_code=status.HTTP_200_OK)
+def get_all_exercise(current_user: schema.TokenData = Depends(jwt_utils.validate_jwt_and_get_current_user)):
+    if current_user:
+        try:
+            result = all_queries.get_all_exercise()
+        except:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="empty table",
+            )
+        l=[]
+        for i in range(len(result)):
+            temp = schema.Exercise_details(
+                EXERCISE_NAME=result[i][0],
+                BODY_PART=result[i][1],
+                EQUIPMENT=result[i][2],
+                ANIMATED_IMAGE_URL=result[i][3],
+                TARGET_MUSCLE=result[i][4],
+                SECONDARY_MUSCLES= json.loads(result[i][5]),
+                INSTRUCTIONS= json.loads(result[i][6])
+            )
+            l.append(temp)
+        return schema.Array_of_data_response(data=l)
+    else:
+        pass
+
