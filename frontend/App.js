@@ -5,7 +5,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Dashboard from "./screens/Dashboard";
 import Diaries from "./screens/Diaries";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +12,13 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="tutorialScreen">
+        <Stack.Navigator
+          initialRouteName="tutorialScreen"
+          screenOptions={{
+            animation: "slide_from_right",
+            statusBarAnimation: "slide",
+          }}
+        >
           <Stack.Screen
             options={{
               headerShown: false,

@@ -1,16 +1,23 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Header = ({ openMenuFunc }) => {
+const Header = ({ title, callOpenMenuFunction, backIcon, navigation }) => {
   return (
     <View style={styles.headerWrapper}>
       <View style={styles.wrapper}>
-        <TouchableOpacity onPress={openMenuFunc}>
-          <Feather name="menu" size={32} color="white" />
-        </TouchableOpacity>
-        <Text style={[styles.textColor1, styles.headerTextHome]}>Home</Text>
+        {!backIcon ? (
+          <TouchableOpacity onPress={callOpenMenuFunction}>
+            <Feather name="menu" size={32} color="white" />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => navigation.pop()}>
+            <Ionicons name="chevron-back" size={32} color="white" />
+          </TouchableOpacity>
+        )}
+        <Text style={[styles.textColor1, styles.headerTextHome]}>{title}</Text>
         <View style={styles.userNameIcon}>
           <Text style={[styles.textColor1, styles.userNameLetter]}>S</Text>
         </View>

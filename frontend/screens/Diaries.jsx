@@ -4,11 +4,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/dashboard/Header";
 import DiaryTemplate from "../components/diaries/DiaryTemplate";
 
-const Diaries = () => {
+const Diaries = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
-      <ScrollView style={styles.baseWrapper}>
+      <Header title="Diaries" backIcon={true} navigation={navigation} />
+      <ScrollView contentContainerStyle={styles.baseWrapper}>
         <DiaryTemplate
           name="My Diary"
           description="lorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsem"
@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   baseWrapper: {
-    flex: 1,
+    flexGrow: 1,
     padding: 10,
+    paddingBottom: 50,
   },
 });
