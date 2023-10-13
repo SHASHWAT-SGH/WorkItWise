@@ -4,10 +4,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/dashboard/Header";
 import DiaryTemplate from "../components/diaries/DiaryTemplate";
 
-const Diaries = ({ navigation }) => {
+const Diaries = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Diaries" backIcon={true} navigation={navigation} />
+      <Header title="Diaries" backIcon={true} />
       <ScrollView contentContainerStyle={styles.baseWrapper}>
         <DiaryTemplate
           name="My Diary"

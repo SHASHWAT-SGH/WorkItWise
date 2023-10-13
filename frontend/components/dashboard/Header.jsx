@@ -4,12 +4,12 @@ import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Header = ({ title, callOpenMenuFunction, backIcon, navigation }) => {
+const Header = ({ title, openDrawer, backIcon, navigation }) => {
   return (
     <View style={styles.headerWrapper}>
       <View style={styles.wrapper}>
         {!backIcon ? (
-          <TouchableOpacity onPress={callOpenMenuFunction}>
+          <TouchableOpacity onPress={openDrawer}>
             <Feather name="menu" size={32} color="white" />
           </TouchableOpacity>
         ) : (
