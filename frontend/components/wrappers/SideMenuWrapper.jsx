@@ -31,12 +31,16 @@ const openMenuFunc = (show, setShow, scale, moveToRight) => {
 };
 
 const SideMenuWrapper = ({ children }) => {
+  const [activeScreen, setActiveScreen] = useState("Home");
   const [show, setShow] = useState(false);
   const scale = useRef(new Animated.Value(1)).current;
   const moveToRight = useRef(new Animated.Value(0)).current;
 
-  const callOpenMenuFunction = () => {
+  const callOpenMenuFunction = (screenName) => {
     openMenuFunc(show, setShow, scale, moveToRight);
+    if (["Home", "History", "Exercises", "Settings"].includes(screenName)) {
+      setActiveScreen(screenName);
+    }
   };
   return (
     <>
@@ -44,25 +48,81 @@ const SideMenuWrapper = ({ children }) => {
         {/* menu pannel at left */}
 
         <View style={styles.menuWrapper}>
-          <TouchableOpacity style={styles.menuItemContainer}>
-            <Feather name="home" size={24} color="white" />
-            <Text style={styles.menuText}>Home</Text>
+          <TouchableOpacity
+            style={styles.menuItemContainer}
+            onPress={() => callOpenMenuFunction("Home")}
+          >
+            <Feather
+              name="home"
+              size={24}
+              color={"white"}
+              opacity={activeScreen == "Home" ? 1 : 0.7}
+            />
+            <Text
+              style={[
+                styles.menuText,
+                activeScreen == "Home" ? styles.activeMenu : null,
+              ]}
+            >
+              Home
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItemContainer}>
-            <MaterialIcons name="history" size={24} color="white" />
-            <Text style={styles.menuText}>History</Text>
+          <TouchableOpacity
+            style={styles.menuItemContainer}
+            onPress={() => callOpenMenuFunction("History")}
+          >
+            <MaterialIcons
+              name="history"
+              size={24}
+              color="white"
+              opacity={activeScreen == "History" ? 1 : 0.7}
+            />
+            <Text
+              style={[
+                styles.menuText,
+                activeScreen == "History" ? styles.activeMenu : null,
+              ]}
+            >
+              History
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItemContainer}>
+          <TouchableOpacity
+            style={styles.menuItemContainer}
+            onPress={() => callOpenMenuFunction("Exercises")}
+          >
             <MaterialCommunityIcons
               name="weight-lifter"
               size={24}
               color="white"
+              opacity={activeScreen == "Exercises" ? 1 : 0.7}
             />
-            <Text style={styles.menuText}>Exercises</Text>
+            <Text
+              style={[
+                styles.menuText,
+                activeScreen == "Exercises" ? styles.activeMenu : null,
+              ]}
+            >
+              Exercises
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItemContainer}>
-            <Ionicons name="settings-outline" size={24} color="white" />
-            <Text style={styles.menuText}>Settings</Text>
+          <TouchableOpacity
+            style={styles.menuItemContainer}
+            onPress={() => callOpenMenuFunction("Settings")}
+          >
+            <Ionicons
+              name="settings-outline"
+              size={24}
+              color="white"
+              opacity={activeScreen == "Settings" ? 1 : 0.7}
+            />
+            <Text
+              style={[
+                styles.menuText,
+                activeScreen == "Settings" ? styles.activeMenu : null,
+              ]}
+            >
+              Settings
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -76,7 +136,7 @@ const SideMenuWrapper = ({ children }) => {
             ]}
           >
             {React.Children.map(children, (child) => {
-              // Clone the child elements and pass the 'first' prop
+              // Clone the child elements and pass the 'callOpenMenuFunction' prop
               return React.cloneElement(child, { callOpenMenuFunction });
             })}
           </Animated.View>
@@ -123,6 +183,10 @@ const styles = StyleSheet.create({
   menuText: {
     color: "white",
     fontSize: 20,
+    opacity: 0.7,
+  },
+  activeMenu: {
     fontWeight: "bold",
+    opacity: 1,
   },
 });
