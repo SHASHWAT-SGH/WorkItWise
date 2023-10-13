@@ -2,14 +2,10 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 
-const switchToDiariesPage = (navigation) => {
-  navigation.push("diaries");
-};
-
-const MyDiary = ({ navigation, name }) => {
+const MyDiary = ({ name }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => switchToDiariesPage(navigation)}>
+      <TouchableOpacity onPress={() => console.log("pressed")}>
         <View style={styles.flexRow}>
           <Text style={[styles.fontColor2, styles.myDiaryText]}>{name}</Text>
           <AntDesign name="right" size={24} color="#836ce0" />
