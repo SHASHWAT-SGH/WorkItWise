@@ -1,7 +1,9 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.responses import FileResponse
 from typing import Annotated
 import json
+import os
 #hashing
 from passlib.context import CryptContext
 # importing schemas
@@ -119,8 +121,7 @@ def get_exercise_by_category(category: str,current_user: schema.TokenData = Depe
             )
             l.append(temp)
         return schema.Array_of_data_response(data=l)
-    else:
-        pass
+    
 
 @app.get("/api/get/allexercises",response_model=schema.Array_of_data_response ,status_code=status.HTTP_200_OK)
 def get_all_exercise(current_user: schema.TokenData = Depends(jwt_utils.validate_jwt_and_get_current_user)):
@@ -148,3 +149,14 @@ def get_all_exercise(current_user: schema.TokenData = Depends(jwt_utils.validate
     else:
         pass
 
+@app.get("/api/get/image",status_code=status.HTTP_200_OK)
+def get_image_with_name(imgurl:str):
+    # if current_user:
+    image_path = f"assets/images/muscle-grp-category/{imgurl}.png"
+    if os.path.exists(image_path):
+        return FileResponse(image_path, media_type="image/png")
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Invalid image url",
+        )
