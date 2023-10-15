@@ -12,23 +12,30 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../global/colors";
 import { Image } from "expo-image";
 import axios from "axios";
+import useAuth from "../contexts/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// axios
+import { setAxiosAuthToken } from "../utils/axiosInstance";
+import { axiosInstance } from "../utils/axiosInstance";
 
 const Login = () => {
+  const { setIsAuthenticated } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const [login, setLogin] = useState(false);
 
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("username", username);
     formData.append("password", password);
 
-    await axios
-      .post("http://192.168.19.156:8000/login", formData)
+    await axiosInstance
+      .post("/login", formData)
       .then((res) => {
         if (res.status == 202) {
-          setLogin(true);
+          const token = res.data.access_token;
+          setAxiosAuthToken(token);
+          AsyncStorage.setItem("token", token);
+          setIsAuthenticated(true);
         }
       })
       .catch((error) => console.log(error));

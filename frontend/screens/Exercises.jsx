@@ -1,20 +1,47 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/dashboard/Header";
 import Card from "../components/exercises/Card";
 import DrawerScreenWrapper from "../components/wrappers/DrawerScreenWrapper";
+// axios
+import { axiosInstance } from "../utils/axiosInstance";
 
 const Exercises = () => {
+  const [exerciseCategories, setExerciseCategories] = useState(null);
+
+  const fetchCategoryData = async () => {
+    await axiosInstance
+      .get("/api/get/allexercisecategories")
+      .then((res) => {
+        setExerciseCategories(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchCategoryData();
+  }, []);
+
   return (
     <DrawerScreenWrapper>
       <SafeAreaView style={styles.container}>
         <Header title="Exercises" />
         <ScrollView style={styles.scrollView}>
           <View style={styles.cardContainer}>
-            <Card imgname="back" />
-            <Card imgname="chest" />
-            <Card imgname="cardio" />
+            {exerciseCategories
+              ? exerciseCategories.map((item, index) => {
+                  return (
+                    <Card
+                      name={item.category}
+                      imgname={item.image_url}
+                      key={index}
+                    />
+                  );
+                })
+              : null}
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -43,5 +70,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: 21,
     justifyContent: "space-between",
+    paddingBottom: 30,
   },
 });

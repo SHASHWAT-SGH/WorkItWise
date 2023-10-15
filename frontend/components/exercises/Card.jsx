@@ -1,50 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Image } from "expo-image";
-import axios from "axios";
+// api url
+import { API_URL } from "../../utils/axiosInstance";
 
-const Card = ({ imgname }) => {
-  // const SERVER_URL = "http://192.168.191.156:8000/api/get/image";
-
-  // const [imagesrc, setImagesrc] = useState();
-
-  // const fetchImage = async () => {
-  //   await axios
-  //     .get(SERVER_URL, {
-  //       params: {
-  //         imgurl: "back",
-  //       },
-  //     })
-  //     .then((res) => {
-  //       const img = res.data;
-  //       setImagesrc(img);
-  //     })
-  //     .catch((error) => {
-  //       if (error.response) {
-  //         console.log("Status Code:", error.response.status);
-  //         console.log("Data:", error.response.data);
-  //       } else {
-  //         console.error("Request failed:", error.message);
-  //       }
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   console.log("sd");
-  //   fetchImage();
-  // }, []);
-
+const Card = ({ name, imgname }) => {
   return (
     <View style={styles.container}>
       <View style={styles.imgWrapper}>
         <Image
           style={styles.img}
           source={{
-            uri: `http://192.168.191.156:8000/api/get/image?imgurl=${imgname}`,
+            uri: `${API_URL}/api/get/image?imgurl=${imgname}`,
           }}
         />
       </View>
-      <Text style={styles.text}>{imgname}</Text>
+      <Text style={styles.text}>{name}</Text>
     </View>
   );
 };

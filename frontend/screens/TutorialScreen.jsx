@@ -21,27 +21,20 @@ const data = [
   },
 ];
 
-const TutorialScreen = ({ navigation }) => {
+const TutorialScreen = ({ skipCallback }) => {
   const [dataIndex, setDataIndex] = useState(0);
-  const [skip, setSkip] = useState(false);
 
-  useEffect(() => {
-    skip ? navigation.navigate("dashboard") : null;
-  }, [skip]);
-
-  return !skip ? (
-    dataIndex < data.length ? (
-      <Tutorial
-        illustratorUrl={data[dataIndex].illustratorUrl}
-        titleText={data[dataIndex].titleText}
-        subText={data[dataIndex].subText}
-        setDataIndex={setDataIndex}
-        setSkip={setSkip}
-      />
-    ) : (
-      setSkip(true)
-    )
-  ) : null;
+  return (
+    <Tutorial
+      illustratorUrl={data[dataIndex].illustratorUrl}
+      titleText={data[dataIndex].titleText}
+      subText={data[dataIndex].subText}
+      setDataIndex={setDataIndex}
+      skipCallback={skipCallback}
+      arrayLength={data.length}
+      dataIndex={dataIndex}
+    />
+  );
 };
 
 export default TutorialScreen;

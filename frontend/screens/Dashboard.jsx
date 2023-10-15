@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/dashboard/Header";
 import { StatusBar } from "expo-status-bar";
@@ -11,7 +11,24 @@ import DailyWorkloadDistribution from "../components/dashboard/DailyWorkloadDist
 import MyCalendar from "../components/dashboard/MyCalendar";
 import DrawerScreenWrapper from "../components/wrappers/DrawerScreenWrapper";
 
+// axios
+import { axiosInstance } from "../utils/axiosInstance";
+
 const Dashboard = ({ navigation }) => {
+  const getHidden = async () => {
+    await axiosInstance
+      .get("/hidden")
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getHidden();
+  }, []);
+
   return (
     <DrawerScreenWrapper>
       <SafeAreaView style={styles.wrapper}>

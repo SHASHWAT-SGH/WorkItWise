@@ -8,16 +8,14 @@ const Tutorial = ({
   titleText,
   subText,
   setDataIndex,
-  setSkip,
+  skipCallback,
+  arrayLength,
+  dataIndex,
 }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.top}>
-        <TouchableOpacity
-          onPress={() => {
-            setSkip(true);
-          }}
-        >
+        <TouchableOpacity onPress={skipCallback}>
           <Text style={styles.topText}>SKIP</Text>
         </TouchableOpacity>
       </View>
@@ -30,7 +28,9 @@ const Tutorial = ({
         <TouchableOpacity
           style={styles.continueBtn}
           onPress={() => {
-            setDataIndex((prev) => prev + 1);
+            dataIndex < arrayLength - 1
+              ? setDataIndex((prev) => prev + 1)
+              : skipCallback();
           }}
         >
           <Text style={styles.continueText}>Continue</Text>

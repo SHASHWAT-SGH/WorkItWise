@@ -1,6 +1,5 @@
-import MainApp from "./screens/MainApp";
-import Login from "./screens/Login";
+import OnStartup from "./components//others/OnStartup";
 
 export default function App() {
-  return <Login />;
+  return <OnStartup />;
 }
