@@ -4,4 +4,6 @@ export default colors = {
   color3: "#7f7fff",
   white: "white",
   dimWhite: "#e1e1e3",
+  dark1: "#292829",
+  dark2: "#333033",
 };

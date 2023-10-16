@@ -7,7 +7,8 @@ import DrawerScreenWrapper from "../components/wrappers/DrawerScreenWrapper";
 // axios
 import { axiosInstance } from "../utils/axiosInstance";
 
-const Exercises = () => {
+const Exercises = ({ navigation }) => {
+  const { openDrawer } = navigation;
   const [exerciseCategories, setExerciseCategories] = useState(null);
 
   const fetchCategoryData = async () => {
@@ -28,7 +29,7 @@ const Exercises = () => {
   return (
     <DrawerScreenWrapper>
       <SafeAreaView style={styles.container}>
-        <Header title="Exercises" />
+        <Header title="Exercises" openDrawer={openDrawer} />
         <ScrollView style={styles.scrollView}>
           <View style={styles.cardContainer}>
             {exerciseCategories
