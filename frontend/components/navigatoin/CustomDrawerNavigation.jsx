@@ -11,6 +11,8 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import ExerciseList from "../../screens/ExerciseList";
+import ExerciseCategoryAndList from "../others/ExerciseCategoryAndList";
 
 const Drawer = createDrawerNavigator();
 
@@ -90,8 +92,8 @@ const CustomDrawerNavigation = () => {
           }}
         />
         <Drawer.Screen
-          name="Exercises"
-          component={Exercises}
+          name="ExerciseCategoryAndList"
+          component={ExerciseCategoryAndList}
           options={{
             drawerIcon: ({ focused }) => {
               return (

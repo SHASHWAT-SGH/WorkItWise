@@ -39,6 +39,7 @@ const Exercises = ({ navigation }) => {
                       name={item.category}
                       imgname={item.image_url}
                       key={index}
+                      navigation={navigation}
                     />
                   );
                 })

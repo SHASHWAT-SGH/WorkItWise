@@ -5,14 +5,15 @@ import { Image } from "expo-image";
 import { API_URL } from "../../utils/axiosInstance";
 import colors from "../../global/colors";
 
-const Card = ({ name, imgname }) => {
+const Card = ({ name, imgname, navigation }) => {
   return (
     <TouchableHighlight
       activeOpacity={0.1}
       underlayColor={colors.dark2}
       style={styles.container}
       onPress={() => {
-        console.log(name);
+        // console.log(name);
+        navigation.navigate("ExerciseList", { exerciseCategory: name });
       }}
     >
       <>
@@ -20,7 +21,7 @@ const Card = ({ name, imgname }) => {
           <Image
             style={styles.img}
             source={{
-              uri: `${API_URL}/api/get/image?imgurl=${imgname}`,
+              uri: `${API_URL}/api/get/image/bycategory?imgurl=${imgname}`,
             }}
           />
         </View>
