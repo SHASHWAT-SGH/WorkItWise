@@ -149,7 +149,7 @@ def get_all_exercise(current_user: schema.TokenData = Depends(jwt_utils.validate
     else:
         pass
 
-@app.get("/api/get/image",status_code=status.HTTP_200_OK)
+@app.get("/api/get/image/bycategory",status_code=status.HTTP_200_OK)
 def get_image_with_name(imgurl:str):
     # if current_user:
     image_path = f"assets/images/muscle-grp-category/{imgurl}.png"
@@ -160,3 +160,16 @@ def get_image_with_name(imgurl:str):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Invalid image url",
         )
+    
+@app.get("/api/get/gif",status_code=status.HTTP_200_OK)
+def get_image_with_name(location:str):
+    # if current_user:
+    image_path = f"assets/images/gif/{location}.gif"
+    if os.path.exists(image_path):
+        return FileResponse(image_path, media_type="image/gif")
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Invalid gif url",
+        )
+    
