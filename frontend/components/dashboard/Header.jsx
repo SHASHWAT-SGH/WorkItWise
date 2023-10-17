@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Header = ({ title, openDrawer, backIcon, navigation }) => {
+const Header = ({ title, openDrawer, backIcon, navigation, exerciseCount }) => {
   return (
     <View style={styles.headerWrapper}>
       <View style={styles.wrapper}>
@@ -17,7 +17,16 @@ const Header = ({ title, openDrawer, backIcon, navigation }) => {
             <Ionicons name="chevron-back" size={32} color="white" />
           </TouchableOpacity>
         )}
-        <Text style={[styles.textColor1, styles.headerTextHome]}>{title}</Text>
+        <View style={styles.nameWrapper}>
+          <Text style={[styles.textColor1, styles.headerTextHome]}>
+            {title}
+          </Text>
+          {exerciseCount ? (
+            <Text style={{ color: "gray", marginLeft: 30 }}>
+              {exerciseCount} exercises
+            </Text>
+          ) : null}
+        </View>
         <View style={styles.userNameIcon}>
           <Text style={[styles.textColor1, styles.userNameLetter]}>S</Text>
         </View>
@@ -52,6 +61,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginLeft: 30,
+    textTransform: "capitalize",
   },
   userNameIcon: {
     width: 40,
@@ -75,5 +85,8 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 10,
     height: 17, // Adjust the height of the shadow as needed
+  },
+  nameWrapper: {
+    // backgroundColor: "red",
   },
 });
