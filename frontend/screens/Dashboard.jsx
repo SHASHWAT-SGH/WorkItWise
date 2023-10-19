@@ -32,7 +32,11 @@ const Dashboard = ({ navigation }) => {
   return (
     <DrawerScreenWrapper>
       <SafeAreaView style={styles.wrapper}>
-        <Header title="Home" openDrawer={navigation.openDrawer} />
+        <Header
+          title="Home"
+          openDrawer={navigation.openDrawer}
+          showProfileImage={true}
+        />
         <View style={{ height: 689 }}>
           <ScrollView style={styles.scrollView}>
             <MyDiary name="My Diary" />

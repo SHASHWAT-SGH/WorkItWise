@@ -4,7 +4,14 @@ import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Header = ({ title, openDrawer, backIcon, navigation, exerciseCount }) => {
+const Header = ({
+  title,
+  openDrawer,
+  backIcon,
+  navigation,
+  exerciseCount,
+  showProfileImage,
+}) => {
   return (
     <View style={styles.headerWrapper}>
       <View style={styles.wrapper}>
@@ -19,17 +26,19 @@ const Header = ({ title, openDrawer, backIcon, navigation, exerciseCount }) => {
         )}
         <View style={styles.nameWrapper}>
           <Text style={[styles.textColor1, styles.headerTextHome]}>
-            {title}
+            {title.length > 30 ? title.substring(0, 30) + "..." : title}
           </Text>
           {exerciseCount ? (
-            <Text style={{ color: "gray", marginLeft: 30 }}>
+            <Text style={{ color: "gray", marginLeft: 20 }}>
               {exerciseCount} exercises
             </Text>
           ) : null}
         </View>
-        <View style={styles.userNameIcon}>
-          <Text style={[styles.textColor1, styles.userNameLetter]}>S</Text>
-        </View>
+        {!showProfileImage ? null : (
+          <View style={styles.userNameIcon}>
+            <Text style={[styles.textColor1, styles.userNameLetter]}>S</Text>
+          </View>
+        )}
       </View>
       <LinearGradient
         colors={["rgba(0,0,0,0.5)", "transparent"]}
@@ -60,7 +69,7 @@ const styles = StyleSheet.create({
   headerTextHome: {
     fontWeight: "bold",
     fontSize: 20,
-    marginLeft: 30,
+    marginLeft: 20,
     textTransform: "capitalize",
   },
   userNameIcon: {

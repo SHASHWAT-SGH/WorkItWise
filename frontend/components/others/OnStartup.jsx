@@ -5,8 +5,10 @@ import { useCallback } from "react";
 // async storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AuthAndMain from "./AuthAndMain";
+import Loader from "../Loader";
 
 const OnStartup = () => {
+  const [loading, setLoading] = useState(true);
   const [usingFirstTime, setUsingFirstTime] = useState(true);
   const checkAppFirstTime = async () => {
     try {
@@ -20,6 +22,7 @@ const OnStartup = () => {
       // log error
       console.error("aasync storage error : " + e);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -32,15 +35,15 @@ const OnStartup = () => {
     setSkip(true);
   }, []);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
-      {/* <AuthProvider value={{ jwtToken, isAuthenticated, setIsAuthenticated }}> */}
       {usingFirstTime && !skip ? (
         <TutorialScreen skipCallback={skipCallback} />
       ) : (
         <AuthAndMain />
       )}
-      {/* </AuthProvider> */}
     </>
   );
 };
