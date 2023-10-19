@@ -6,4 +6,5 @@ export default colors = {
   dimWhite: "#e1e1e3",
   dark1: "#292829",
   dark2: "#333033",
+  black: "black",
 };

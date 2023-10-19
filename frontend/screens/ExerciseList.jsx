@@ -13,7 +13,7 @@ import { axiosInstance } from "../utils/axiosInstance";
 import { Image } from "expo-image";
 import { API_URL } from "../utils/axiosInstance";
 
-const Item = ({ exerciseInfo }) => {
+const Item = ({ exerciseInfo, navigation }) => {
   const { EXERCISE_NAME, ANIMATED_IMAGE_URL } = exerciseInfo;
   return (
     <TouchableHighlight
@@ -21,7 +21,9 @@ const Item = ({ exerciseInfo }) => {
       activeOpacity={0.1}
       underlayColor={colors.dark2}
       onPress={() => {
-        console.log("ckick");
+        navigation.push("ExerciseInformation", {
+          exerciseInfo: exerciseInfo,
+        });
       }}
     >
       <>
@@ -76,7 +78,7 @@ const ExerciseList = ({ navigation, route }) => {
         <FlatList
           data={data}
           renderItem={({ item, index }) => (
-            <Item exerciseInfo={item} key={index} />
+            <Item exerciseInfo={item} key={index} navigation={navigation} />
           )}
         />
       </View>
