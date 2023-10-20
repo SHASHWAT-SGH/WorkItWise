@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/dashboard/Header";
 import Card from "../components/exercises/Card";
-import DrawerScreenWrapper from "../components/wrappers/DrawerScreenWrapper";
 // axios
 import { axiosInstance } from "../utils/axiosInstance";
 
@@ -27,27 +26,25 @@ const Exercises = ({ navigation }) => {
   }, []);
 
   return (
-    <DrawerScreenWrapper>
-      <SafeAreaView style={styles.container}>
-        <Header title="Exercises" openDrawer={openDrawer} />
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.cardContainer}>
-            {exerciseCategories
-              ? exerciseCategories.map((item, index) => {
-                  return (
-                    <Card
-                      name={item.category}
-                      imgname={item.image_url}
-                      key={index}
-                      navigation={navigation}
-                    />
-                  );
-                })
-              : null}
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </DrawerScreenWrapper>
+    <SafeAreaView style={styles.container}>
+      <Header title="Exercises" openDrawer={openDrawer} />
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.cardContainer}>
+          {exerciseCategories
+            ? exerciseCategories.map((item, index) => {
+                return (
+                  <Card
+                    name={item.category}
+                    imgname={item.image_url}
+                    key={index}
+                    navigation={navigation}
+                  />
+                );
+              })
+            : null}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

@@ -5,6 +5,7 @@ import Dashboard from "../../screens/Dashboard";
 import Settings from "../../screens/Settings";
 import Exercises from "../../screens/Exercises";
 import HistoryScreen from "../../screens/HistoryScreen";
+import colors from "../../global/colors";
 
 // icons
 import { Feather } from "@expo/vector-icons";
@@ -149,7 +150,7 @@ const CustomDrawerNavigation = () => {
 export default CustomDrawerNavigation;
 
 const Colors = {
-  bg: "#9090f5",
+  bg: colors.color1,
   active: "#fff",
   inactive: "#eee",
   transparent: "transparent",

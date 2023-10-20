@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Calendar from "react-native-calendars/src/calendar";
+import colors from "../../global/colors";
 
 const MyCalendar = () => {
   return (
@@ -14,15 +15,22 @@ const MyCalendar = () => {
           elevation: 4,
           margin: 15,
           marginTop: 30,
-          borderColor: "#808080",
-          borderWidth: 1,
+          borderColor: colors.dark2,
+          borderWidth: 2,
         }}
         theme={{
-          backgroundColor: "#000000",
-          calendarBackground: "#000000",
+          backgroundColor: colors.black,
+          calendarBackground: colors.black,
+          textSectionTitleColor: colors.dimWhite, // monday tuesday color
+          selectedDayBackgroundColor: colors.color3,
+          todayTextColor: colors.color3,
+          dayTextColor: colors.white,
+          textDisabledColor: colors.dark3,
+          monthTextColor: colors.white,
+          arrowColor: colors.color1,
         }}
         markedDates={{
-          "2023-09-14": { selected: true, selectedColor: "#363535" },
+          "2023-09-14": { selected: true },
         }}
       />
     </View>

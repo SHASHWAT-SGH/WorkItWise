@@ -3,30 +3,33 @@ import React from "react";
 import Exercises from "../../screens/Exercises";
 import ExerciseList from "../../screens/ExerciseList";
 import ExerciseInformation from "../../screens/ExerciseInformation";
-import { createStackNavigator } from "@react-navigation/stack";
-import colors from "../../global/colors";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const Stack = createStackNavigator();
+import colors from "../../global/colors";
+import DrawerScreenWrapper from "../wrappers/DrawerScreenWrapper";
+
+const Stack = createNativeStackNavigator();
 
 const ExerciseCategoryAndList = () => {
   return (
-    <Stack.Navigator
-      initialRouteName={Exercises}
-      screenOptions={{
-        headerShown: false,
-        cardStyle: {
-          backgroundColor: colors.color1,
-        },
-        // animation: 'slide_from_right'
-      }}
-    >
-      <Stack.Screen name="Exercises" component={Exercises} />
-      <Stack.Screen name="ExerciseList" component={ExerciseList} />
-      <Stack.Screen
-        name="ExerciseInformation"
-        component={ExerciseInformation}
-      />
-    </Stack.Navigator>
+    <DrawerScreenWrapper>
+      <Stack.Navigator
+        screenOptions={{
+          cardStyle: { backgroundColor: "red" },
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+          contentStyle: { backgroundColor: colors.color1 },
+        }}
+      >
+        <Stack.Screen name="Exercises" component={Exercises} />
+        <Stack.Screen name="ExerciseList" component={ExerciseList} />
+        <Stack.Screen
+          name="ExerciseInformation"
+          component={ExerciseInformation}
+        />
+      </Stack.Navigator>
+    </DrawerScreenWrapper>
   );
 };
 

@@ -2,13 +2,15 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 
+import colors from "../../global/colors";
+
 const MyDiary = ({ name }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => console.log("pressed")}>
         <View style={styles.flexRow}>
           <Text style={[styles.fontColor2, styles.myDiaryText]}>{name}</Text>
-          <AntDesign name="right" size={24} color="#836ce0" />
+          <AntDesign name="right" size={24} color={colors.color3} />
         </View>
       </TouchableOpacity>
     </View>
@@ -18,7 +20,7 @@ const MyDiary = ({ name }) => {
 export default MyDiary;
 
 const styles = StyleSheet.create({
-  fontColor2: { color: "#836ce0" },
+  fontColor2: { color: colors.color3 },
   flexRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
     marginTop: 28,
     marginLeft: 15,
     marginRight: 15,
-    backgroundColor: "#38304d",
+    backgroundColor: colors.dark1,
     borderRadius: 10,
     height: 60,
     justifyContent: "center",

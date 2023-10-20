@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
+import colors from "../../global/colors";
 
 const Tutorial = ({
   illustratorUrl,
@@ -45,7 +46,7 @@ export default Tutorial;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#7f7fff",
+    backgroundColor: colors.color1,
     padding: 7,
   },
   top: {
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   },
   topText: {
     fontSize: 17,
-    color: "#FFFFFF",
+    color: colors.white,
     fontWeight: "800",
   },
   middle: {
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 25,
     fontWeight: "800",
-    color: "#FFFFFF",
+    color: colors.white,
     // backgroundColor: "red",
   },
   middleText: {
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     fontSize: 18,
-    color: "#FFFFFF",
+    color: colors.white,
     opacity: 0.8,
   },
   bottom: {
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   continueText: {
     fontSize: 15,
     fontWeight: "bold",
-    color: "#7f7fff",
+    color: colors.color1,
     textAlign: "center",
   },
 });

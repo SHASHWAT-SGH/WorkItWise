@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    color: "white",
+    color: colors.white,
     fontWeight: "bold",
     marginTop: 6,
     textTransform: "capitalize",

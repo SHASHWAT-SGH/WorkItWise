@@ -1,33 +1,34 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import WorkLoadPieChart from "./WorkLoadPieChart";
+import colors from "../../global/colors";
 
 const pieData = [
   {
     name: "Seoul",
     population: 21500000,
-    color: "rgba(131, 167, 234, 1)",
+    color: "#0b1d78",
     // legendFontColor: "#7F7F7F",
     // legendFontSize: 15,
   },
   {
     name: "Toronto",
     population: 2800000,
-    color: "#F00",
-    legendFontColor: "#7F7F7F",
+    color: "#0045a5",
+    legendFontColor: "#645a9e",
     legendFontSize: 15,
   },
   {
     name: "Beijing",
     population: 527612,
-    color: "red",
-    legendFontColor: "#7F7F7F",
+    color: "#553de3",
+    legendFontColor: "#553de3",
     legendFontSize: 15,
   },
   {
     name: "New York",
     population: 8538000,
-    color: "#ffffff",
+    color: "#3112e3",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15,
   },
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // justifyContent: "center",
     // alignItems: "center",
-    backgroundColor: "#38304d",
+    backgroundColor: colors.dark1,
     borderRadius: 12,
   },
 
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 26,
-    color: "white",
+    color: colors.dimWhite,
     fontWeight: "bold",
   },
 });

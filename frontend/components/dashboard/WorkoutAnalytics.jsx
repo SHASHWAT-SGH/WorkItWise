@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import colors from "../../global/colors";
 
 const WorkoutAnalytics = () => {
   return (
@@ -13,16 +14,13 @@ export default WorkoutAnalytics;
 
 const styles = StyleSheet.create({
   container: {
-    // paddingLeft: 40,
-    // paddingRight: 40,
     marginTop: 20,
     marginLeft: 15,
     width: 250,
   },
   text: {
-    color: "white",
+    color: colors.white,
     fontSize: 30,
     fontWeight: "bold",
-    // textAlign: "center",
   },
 });

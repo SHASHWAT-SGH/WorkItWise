@@ -3,6 +3,7 @@ import React from "react";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import colors from "../../global/colors";
 
 const Header = ({
   title,
@@ -17,11 +18,11 @@ const Header = ({
       <View style={styles.wrapper}>
         {!backIcon ? (
           <TouchableOpacity onPress={openDrawer}>
-            <Feather name="menu" size={32} color="white" />
+            <Feather name="menu" size={32} color={colors.white} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={() => navigation.pop()}>
-            <Ionicons name="chevron-back" size={32} color="white" />
+            <Ionicons name="chevron-back" size={32} color={colors.white} />
           </TouchableOpacity>
         )}
         <View style={styles.nameWrapper}>
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 8,
-    backgroundColor: "#7f7fff",
+    backgroundColor: colors.color1,
     marginLeft: "auto",
     marginRight: 10,
   },

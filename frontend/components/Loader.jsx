@@ -12,7 +12,6 @@ const Loader = () => {
         style={{
           width: 200,
           height: 200,
-          backgroundColor: "#eee",
         }}
         source={require("../assets/lottie/loading.json")}
       />

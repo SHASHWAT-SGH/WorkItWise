@@ -10,7 +10,7 @@ import WeeklyWorkloadDistribution from "../components/dashboard/WeeklyWorkloadDi
 import DailyWorkloadDistribution from "../components/dashboard/DailyWorkloadDistribution";
 import MyCalendar from "../components/dashboard/MyCalendar";
 import DrawerScreenWrapper from "../components/wrappers/DrawerScreenWrapper";
-
+import colors from "../global/colors";
 // axios
 import { axiosInstance } from "../utils/axiosInstance";
 
@@ -37,7 +37,7 @@ const Dashboard = ({ navigation }) => {
           openDrawer={navigation.openDrawer}
           showProfileImage={true}
         />
-        <View style={{ height: 689 }}>
+        <View style={{ flex: 1 }}>
           <ScrollView style={styles.scrollView}>
             <MyDiary name="My Diary" />
             <MyCalendar />
@@ -57,10 +57,10 @@ export default Dashboard;
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: "black",
+    backgroundColor: colors.black,
     flex: 1,
   },
   scrollView: {
-    marginBottom: 70,
+    marginBottom: 69,
   },
 });

@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import colors from "../../global/colors";
 
 const Footer = () => {
   const { width } = Dimensions.get("window");
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 2,
     borderBottomWidth: 0,
-    borderColor: "#38304d",
+    borderColor: colors.dark2,
     position: "absolute",
     bottom: 0,
     height: 70,
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
   },
   btn: {
-    backgroundColor: "#7f7fff",
+    backgroundColor: colors.color1,
     flex: 1,
     borderRadius: 7,
     justifyContent: "center",

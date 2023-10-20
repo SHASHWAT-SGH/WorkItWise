@@ -1,41 +1,42 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import WorkLoadPieChart from "./WorkLoadPieChart";
+import colors from "../../global/colors";
 
 const pieData = [
   {
     name: "Seoul",
     population: 21000,
-    color: "rgba(131, 0, 234, 1)",
+    color: "#64b5f6",
     // legendFontColor: "#7F7F7F",
     // legendFontSize: 15,
   },
   {
     name: "Toronto",
     population: 2800000,
-    color: "#F00",
-    legendFontColor: "#7F7F7F",
+    color: "#5ea3d9",
+    legendFontColor: "#5ea3d9",
     legendFontSize: 15,
   },
   {
     name: "Beijing",
     population: 527612,
-    color: "red",
-    legendFontColor: "#7F7F7F",
+    color: "#517e9e",
+    legendFontColor: "#517e9e",
     legendFontSize: 15,
   },
   {
     name: "New York",
     population: 8538000,
-    color: "#ffffff",
-    legendFontColor: "#7F7F7F",
+    color: "#4b6c81",
+    legendFontColor: "#4b6c81",
     legendFontSize: 15,
   },
   {
     name: "Moscow",
     population: 11920000,
-    color: "rgb(0, 0, 255)",
-    legendFontColor: "#7F7F7F",
+    color: "#455a64",
+    legendFontColor: "#455a64",
     legendFontSize: 15,
   },
 ];
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // justifyContent: "center",
     // alignItems: "center",
-    backgroundColor: "#38304d",
+    backgroundColor: colors.dark1,
     borderRadius: 12,
   },
 
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 26,
-    color: "white",
+    color: colors.dimWhite,
     fontWeight: "bold",
   },
 });
