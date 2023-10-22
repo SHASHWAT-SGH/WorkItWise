@@ -15,6 +15,12 @@ from models.all_queries import All_queries
 #jwt
 from utils.JWT_utils import JWT_utils
 
+'''
+    Sign JWT with name also
+
+
+'''
+
 
 # --------------------------------------------------------------------------------
 
