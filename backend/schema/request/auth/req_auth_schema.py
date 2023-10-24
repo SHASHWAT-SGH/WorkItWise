@@ -12,6 +12,11 @@ class User_signup(BaseModel):
         return is_valid_password(password)
 
 
+class User_login(BaseModel):
+    email: str
+    password: str
+
+
 class TokenData_req(BaseModel):
     user_email: str
     user_password: str

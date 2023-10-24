@@ -1,13 +1,8 @@
 from fastapi import APIRouter, status, Depends
 
-from typing import Annotated
-from fastapi.security import OAuth2PasswordRequestForm
-from utils.JWT.JWT_utils import JWT_utils
-
 from controllers.auth.auth_controller import signup, login
 
-from schema.request.auth.req_auth_schema import User_signup
-from schema.request.auth.req_auth_schema import TokenData_req
+from schema.request.auth.req_auth_schema import User_signup, User_login
 from schema.response.global_response import Response_success_with_msg
 from schema.response.auth.res_auth_schema import Token_response
 
@@ -30,22 +25,5 @@ def signup_(request: User_signup):
     status_code=status.HTTP_202_ACCEPTED,
     response_model=Token_response,
 )
-def login_(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
-    return login(form_data)
-
-
-jwt_obj = JWT_utils()
-
-
-# hidden api
-@auth_router.get(
-    "/hidden",
-    status_code=status.HTTP_200_OK,
-)
-def hidden(
-    current_user: TokenData_req = Depends(jwt_obj.validate_jwt_and_get_current_user),
-):
-    if current_user:
-        return current_user
-    else:
-        return {"success": False}
+def login_(request: User_login):
+    return login(request)
