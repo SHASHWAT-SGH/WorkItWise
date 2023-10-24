@@ -2,6 +2,8 @@ from fastapi import FastAPI, Depends
 from routes.auth.authRoutes import auth_router
 from routes.unprotected_routes.images_routes import image_router
 
+from routes.protected_routes.protected_routes import protected_router
+
 from utils.JWT.JWT_bearer import JWT_brearer
 
 # batabase connection
@@ -22,8 +24,6 @@ app.include_router(auth_router, prefix="/auth")
 # media routes: images and gif
 app.include_router(image_router, prefix="/media")
 
-
-# testing
-@app.get("/testets", dependencies=[Depends(JWT_brearer())])
-def temp():
-    return {"succ": True}
+app.include_router(
+    protected_router, prefix="/api", dependencies=[Depends(JWT_brearer())]
+)
