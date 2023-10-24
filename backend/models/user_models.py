@@ -19,7 +19,7 @@ def get_user_password_from_db(email):
         return {"user_name": result[0][0], "user_pass": result[0][1]}
 
 
-def get_user_info_using_already_hashed_pass(self, email, password):
+def get_user_info_using_already_hashed_pass(email, password):
     sql = f"SELECT * FROM USERS WHERE USER_EMAIL = '{email}' AND USER_PASSWORD = '{password}'"
     my_db_cursor.execute(sql)
     result = my_db_cursor.fetchall()

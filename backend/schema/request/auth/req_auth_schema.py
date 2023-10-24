@@ -13,5 +13,5 @@ class User_signup(BaseModel):
 
 
 class TokenData_req(BaseModel):
-    username: str
-    password: str
+    user_email: str
+    user_password: str
