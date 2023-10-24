@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from routes.auth.authRoutes import auth_router
-from routes.unauthenticated_routes.images_routes import image_router
+from routes.unprotected_routes.images_routes import image_router
 
 # batabase connection
 from models.db_conn import my_db  # it connects to db
