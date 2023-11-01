@@ -38,5 +38,5 @@ def validate_jwt_and_get_current_user(token: str):
     if user is None:
         raise credential_exception
     return User_Information(
-        user_name=user[1], user_email=user[2], user_password=user[3]
+        user_id=user[0],  user_name=user[1], user_email=user[2], user_password=user[3]
     )

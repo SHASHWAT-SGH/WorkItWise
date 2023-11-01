@@ -4,6 +4,7 @@ from routes.unprotected_routes.images_routes import image_router
 
 from routes.protected_routes.protected_routes import protected_router
 
+
 from utils.JWT.JWT_bearer import JWT_brearer
 
 # batabase connection
@@ -19,11 +20,11 @@ def get_root_page():
 
 
 # authentication routes : login, signup
-app.include_router(auth_router, prefix="/auth")
+app.include_router(auth_router, prefix="/auth", tags=["authentication"])
 
 # media routes: images and gif
-app.include_router(image_router, prefix="/media")
+app.include_router(image_router, prefix="/media", tags=["media"])
 
 app.include_router(
-    protected_router, prefix="/api", dependencies=[Depends(JWT_brearer())]
+    protected_router, prefix="/api", dependencies=[Depends(JWT_brearer())], tags=["private"]
 )

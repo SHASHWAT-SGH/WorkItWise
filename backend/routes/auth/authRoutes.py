@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, status
 
 from controllers.auth.auth_controller import signup, login
 

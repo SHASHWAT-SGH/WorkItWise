@@ -8,6 +8,7 @@ class Token_response(BaseModel):
 
 
 class User_Information(BaseModel):
+    user_id: int
     user_name: str
     user_email: str
     user_password: str

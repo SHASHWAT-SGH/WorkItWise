@@ -1,7 +1,7 @@
-from fastapi import Request, HTTPException, status
+from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-from utils.JWT.JWT_handler import create_access_token, validate_jwt_and_get_current_user
+from utils.JWT.JWT_handler import  validate_jwt_and_get_current_user
 
 
 class JWT_brearer(HTTPBearer):
@@ -24,6 +24,8 @@ class JWT_brearer(HTTPBearer):
                 raise HTTPException(
                     status_code=403, detail="Invalid token or expired token."
                 )
+            
+            request.state.decoded_jwt = decoded_jwt
             return decoded_jwt
         else:
             raise HTTPException(status_code=403, detail="Invalid authorization code.")
