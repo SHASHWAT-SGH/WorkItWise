@@ -21,7 +21,7 @@ def get_whole_exercise_history_(state_request: Request,diary_id: int):
     user_id = state_request.state.decoded_jwt.user_id
     return get_whole_exercise_history(diary_id,user_id)
 
-@exercise_history_router.get("/get/by/date")
+@exercise_history_router.get("/get/by/date", response_model=Array_of_Exercise_history_response, status_code=status.HTTP_200_OK)
 def get_exercise_history_by_date_(state_request: Request,diary_id: int, exercise_date: date):
     user_id = state_request.state.decoded_jwt.user_id
     return get_exercise_history_by_date(diary_id,exercise_date,user_id)
