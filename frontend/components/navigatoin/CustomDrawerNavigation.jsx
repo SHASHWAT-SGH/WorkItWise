@@ -1,7 +1,9 @@
 import React from "react";
 import { Platform, StyleSheet, Text } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Dashboard from "../../screens/Dashboard";
+// import Dashboard from "../../screens/Dashboard";
+import DashboardAndOthers from "../others/DashboardAndOthers";
+
 import Settings from "../../screens/Settings";
 import Exercises from "../../screens/Exercises";
 import HistoryScreen from "../../screens/HistoryScreen";
@@ -48,7 +50,7 @@ const CustomDrawerNavigation = () => {
       >
         <Drawer.Screen
           name="Home"
-          component={Dashboard}
+          component={DashboardAndOthers}
           options={{
             drawerIcon: ({ focused }) => {
               return (

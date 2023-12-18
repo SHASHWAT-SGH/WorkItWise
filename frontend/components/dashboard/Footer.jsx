@@ -9,18 +9,27 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import colors from "../../global/colors";
 
-const Footer = () => {
+const Footer = ({ navigation }) => {
   const { width } = Dimensions.get("window");
+
   return (
-    <View style={[styles.container, { width: width }]}>
-      <TouchableOpacity style={styles.btn}>
-        <Text style={styles.text}>Start Workout</Text>
-      </TouchableOpacity>
-      <LinearGradient
-        colors={["transparent", "rgba(0,0,0,0.3)"]}
-        style={styles.shadowOverlay}
-      />
-    </View>
+    <>
+      <View style={[styles.container, { width: width }]}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            // setModalVisible(true);
+            navigation.navigate("StartWorkout");
+          }}
+        >
+          <Text style={styles.text}>Start Workout</Text>
+        </TouchableOpacity>
+        <LinearGradient
+          colors={["transparent", "rgba(0,0,0,0.3)"]}
+          style={styles.shadowOverlay}
+        />
+      </View>
+    </>
   );
 };
 

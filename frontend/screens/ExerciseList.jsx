@@ -14,7 +14,7 @@ import { Image } from "expo-image";
 import { API_URL } from "../utils/axiosInstance";
 
 const Item = ({ exerciseInfo, navigation }) => {
-  const { EXERCISE_NAME, ANIMATED_IMAGE_URL } = exerciseInfo;
+  const { exercise_name, animated_image_url } = exerciseInfo;
   return (
     <TouchableHighlight
       style={styles.exerciseItem}
@@ -31,11 +31,11 @@ const Item = ({ exerciseInfo, navigation }) => {
           <Image
             style={styles.img}
             source={{
-              uri: `${API_URL}/api/get/gif?location=${ANIMATED_IMAGE_URL}`,
+              uri: `${API_URL}/media/gif/exercise?exercise_name=${animated_image_url}`,
             }}
           />
         </View>
-        <Text style={styles.exerciseItemText}>{EXERCISE_NAME}</Text>
+        <Text style={styles.exerciseItemText}>{exercise_name}</Text>
       </>
     </TouchableHighlight>
   );

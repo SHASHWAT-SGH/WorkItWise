@@ -4,10 +4,10 @@ import { AntDesign } from "@expo/vector-icons";
 
 import colors from "../../global/colors";
 
-const MyDiary = ({ name }) => {
+const MyDiary = ({ name, navigation }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => console.log("pressed")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Diaries")}>
         <View style={styles.flexRow}>
           <Text style={[styles.fontColor2, styles.myDiaryText]}>{name}</Text>
           <AntDesign name="right" size={24} color={colors.color3} />

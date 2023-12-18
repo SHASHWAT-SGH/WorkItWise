@@ -10,23 +10,22 @@ import { ScrollView } from "react-native-gesture-handler";
 const ExerciseInformation = ({ navigation, route }) => {
   const { exerciseInfo } = route.params;
   const {
-    EXERCISE_NAME,
-    ANIMATED_IMAGE_URL,
-    BODY_PART,
-    EQUIPMENT,
-    INSTRUCTIONS,
-    SECONDARY_MUSCLES,
-    TARGET_MUSCLE,
+    exercise_name,
+    equipment,
+    animated_image_url,
+    target_muscle,
+    secondary_muscles,
+    instructions,
   } = exerciseInfo;
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header backIcon={true} title={EXERCISE_NAME} navigation={navigation} />
+      <Header backIcon={true} title={exercise_name} navigation={navigation} />
       <View style={styles.imgWrapper}>
         <Image
           style={styles.img}
           source={{
-            uri: `${API_URL}/api/get/gif?location=${ANIMATED_IMAGE_URL}`,
+            uri: `${API_URL}/media/gif/exercise?exercise_name=${animated_image_url}`,
           }}
         />
       </View>
@@ -35,15 +34,15 @@ const ExerciseInformation = ({ navigation, route }) => {
           <Text style={styles.heading}>Muscles Involved</Text>
           <View style={styles.musclesWrapper}>
             <Text style={[styles.muscleName, styles.muscleNamePrimary]}>
-              {exerciseInfo.TARGET_MUSCLE}
+              {target_muscle}
             </Text>
-            {Object.keys(SECONDARY_MUSCLES).map((key) => {
+            {Object.keys(secondary_muscles).map((key) => {
               return (
                 <Text
                   style={[styles.muscleName, styles.muscleNameSecondary]}
                   key={key}
                 >
-                  {SECONDARY_MUSCLES[key]}
+                  {secondary_muscles[key]}
                 </Text>
               );
             })}
@@ -53,17 +52,18 @@ const ExerciseInformation = ({ navigation, route }) => {
           <Text style={styles.heading}>Equipment</Text>
           <View style={styles.textWrapperPadded}>
             <Text style={styles.text}>
-              {`\u2022`} {EQUIPMENT}
+              {`\u2022`} {equipment}
             </Text>
           </View>
         </View>
         <View style={styles.viewWrapper}>
           <Text style={styles.heading}>Instructions</Text>
           <View style={styles.textWrapperPadded}>
-            {Object.keys(INSTRUCTIONS).map((key) => {
+            {Object.keys(instructions).map((key) => {
               return (
                 <Text style={styles.text} key={key}>
-                  {key}. {INSTRUCTIONS[key]}
+                  {instructions[key]}
+                  {"\n"}
                 </Text>
               );
             })}
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: "center",
     marginBottom: 20,
-    // backgroundColor: "red",
   },
   img: {
     width: 250,
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark2,
   },
   textWrapperPadded: {
-    paddingLeft: 20,
+    paddingLeft: 2,
     marginTop: 5,
   },
   text: {

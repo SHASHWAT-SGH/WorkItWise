@@ -1,46 +1,60 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/dashboard/Header";
 import DiaryTemplate from "../components/diaries/DiaryTemplate";
 
-const Diaries = () => {
+const Diaries = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Header title="Diaries" backIcon={true} />
+    <View style={styles.container}>
+      <Header title="Diaries" backIcon={true} navigation={navigation} />
       <ScrollView contentContainerStyle={styles.baseWrapper}>
         <DiaryTemplate
           name="My Diary"
-          description="lorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsem"
+          description="lorem lorem ipsum"
           selected={true}
         />
         <DiaryTemplate
           name="My Diary"
-          description="lorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsem"
+          description="lorem lorem ipsum"
           selected={false}
         />
         <DiaryTemplate
           name="My Diary"
-          description="lorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsem"
+          description="lorem lorem ipsum"
           selected={false}
         />
         <DiaryTemplate
           name="My Diary"
-          description="lorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsem"
+          description="lorem lorem ipsum"
           selected={false}
         />
         <DiaryTemplate
           name="My Diary"
-          description="lorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsem"
+          description="lorem lorem ipsum"
           selected={false}
         />
         <DiaryTemplate
           name="My Diary"
-          description="lorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsemlorem ipsem"
+          description="lorem lorem ipsum"
+          selected={false}
+        />
+        <DiaryTemplate
+          name="My Diary"
+          description="lorem lorem ipsum"
+          selected={false}
+        />
+        <DiaryTemplate
+          name="My Diary"
+          description="lorem lorem ipsum"
+          selected={false}
+        />
+        <DiaryTemplate
+          name="My Diary"
+          description="lorem lorem ipsum"
           selected={false}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

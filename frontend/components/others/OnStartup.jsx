@@ -20,7 +20,7 @@ const OnStartup = () => {
       }
     } catch (e) {
       // log error
-      console.error("aasync storage error : " + e);
+      console.error("async storage error : " + e);
     }
     setLoading(false);
   };

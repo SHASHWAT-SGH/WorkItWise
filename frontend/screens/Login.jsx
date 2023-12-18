@@ -7,11 +7,10 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../global/colors";
 import { Image } from "expo-image";
-import axios from "axios";
 import useAuth from "../contexts/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // axios
@@ -24,12 +23,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("password", password);
-
     await axiosInstance
-      .post("/login", formData)
+      .post("/auth/login", {
+        email: username,
+        password: password,
+      })
       .then((res) => {
         if (res.status == 202) {
           const token = res.data.access_token;
