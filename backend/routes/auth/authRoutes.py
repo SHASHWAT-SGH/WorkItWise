@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Request
 
 from controllers.auth.auth_controller import signup, login
 
@@ -15,7 +15,7 @@ auth_router = APIRouter()
     status_code=status.HTTP_202_ACCEPTED,
     response_model=Response_success_with_msg,
 )
-def signup_(request: User_signup):
+def signup_(state_request: Request, request: User_signup):
     return signup(request)
 
 

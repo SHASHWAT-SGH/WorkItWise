@@ -12,4 +12,5 @@ export default colors = {
   dark5: "#333133", // for button ripple effect
   dark6: "#454345", // for button ripple effect
   black: "black",
+  red: "#c92228",
 };

@@ -17,6 +17,6 @@ def get_all_user_diaries(user_id):
     result = get_all_diary_list(user_id)
     data = []
     for i in result:
-        data.append(Diary_details_response(diary_name=i[0], diary_description=i[1]))
+        data.append(Diary_details_response(diary_id=i[0], diary_name=i[1], diary_description=i[2]))
     return Array_of_diary_details_response(data=data)
 

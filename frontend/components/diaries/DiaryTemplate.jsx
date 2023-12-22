@@ -28,26 +28,39 @@ const DiaryTemplate = ({ name, description, selected }) => {
         </View>
       </Pressable>
       {isDropdownVisible ? (
-        <View style={styles.dropdown}>
-          <Pressable
-            style={styles.option}
-            android_ripple={{ color: colors.dark6 }}
-          >
-            <Text style={styles.text}>option 1</Text>
-          </Pressable>
-          <Pressable
-            style={styles.option}
-            android_ripple={{ color: colors.dark6 }}
-          >
-            <Text style={styles.text}>option 2</Text>
-          </Pressable>
-          <Pressable
-            style={styles.option}
-            android_ripple={{ color: colors.dark6 }}
-          >
-            <Text style={styles.text}>option 3</Text>
-          </Pressable>
-        </View>
+        name.toLowerCase() == "my diary" ? (
+          <View style={styles.dropdown}>
+            <Pressable
+              style={styles.option}
+              android_ripple={{ color: colors.dark6 }}
+            >
+              <Text style={styles.text}>Select Diary</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <View style={styles.dropdown}>
+            <Pressable
+              style={styles.option}
+              android_ripple={{ color: colors.dark6 }}
+            >
+              <Text style={styles.text}>Select Diary</Text>
+            </Pressable>
+            <Pressable
+              style={styles.option}
+              android_ripple={{ color: colors.dark6 }}
+            >
+              <Text style={styles.text}>Edit Diary</Text>
+            </Pressable>
+            <Pressable
+              style={styles.option}
+              android_ripple={{ color: colors.dark6 }}
+            >
+              <Text style={[styles.text, { color: colors.red }]}>
+                Delete Diary
+              </Text>
+            </Pressable>
+          </View>
+        )
       ) : null}
     </View>
   );
@@ -99,7 +112,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.white,
-    textAlign: "center",
+    textAlign: "left",
     textTransform: "capitalize",
     fontSize: 16,
   },

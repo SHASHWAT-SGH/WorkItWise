@@ -6,7 +6,8 @@ from utils.JWT.JWT_handler import create_access_token
 
 # models
 from models.user_models import add_user_to_db, get_user_password_from_db
-
+from models.user_models import get_user_info_using_already_hashed_pass
+from models.diary_models import add_diary
 # schema
 from schema.response.global_response import Response_success_with_msg
 from schema.response.auth.res_auth_schema import Token_response
@@ -16,6 +17,9 @@ def signup(request):
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     hashed_password = pwd_context.hash(request.password)
     add_user_to_db(request.name, request.email, hashed_password)
+    user = get_user_info_using_already_hashed_pass(request.email, hashed_password)
+    user_id = user[0]
+    add_diary(user_id, "My Diary", "Default diary")
     return Response_success_with_msg(success=True, msg="Account created successfully.")
 
 

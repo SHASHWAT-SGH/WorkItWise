@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import List
 
 class Diary_details_response(BaseModel):
+    diary_id: int
     diary_name: str
     diary_description: str
 
