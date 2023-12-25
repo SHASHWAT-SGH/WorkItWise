@@ -1,54 +1,49 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import colors from "../../global/colors";
+import MySafeAreaView from "../MySafeAreaView";
+import globalStyles from "../../global/styles";
 
-const Tutorial = ({
-  illustratorUrl,
-  titleText,
-  subText,
-  setDataIndex,
-  skipCallback,
-  arrayLength,
-  dataIndex,
-}) => {
+const Tutorial = ({ illustratorUrl, titleText, subText }) => {
+  const windowWidth = useWindowDimensions().width;
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.top}>
-        <TouchableOpacity onPress={skipCallback}>
-          <Text style={styles.topText}>SKIP</Text>
-        </TouchableOpacity>
+    <MySafeAreaView>
+      {/* -24 is because save area view has padding horizontal 12*/}
+      <View style={{ flex: 1, width: windowWidth - 24 }}>
+        <View style={[styles.top]}>
+          <TouchableOpacity onPress={() => {}}>
+            <Text style={styles.topText}>SKIP</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.middle}>
+          <Image
+            style={styles.image}
+            source={illustratorUrl}
+            contentFit="cover"
+          />
+          <Text style={styles.middleHeader}>{titleText}</Text>
+          <Text style={styles.middleText}>{subText}</Text>
+        </View>
+        <View style={styles.bottom}>
+          <TouchableOpacity style={styles.continueBtn} onPress={() => {}}>
+            <Text style={styles.continueText}>Continue</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.middle}>
-        <Image style={styles.image} source={illustratorUrl} />
-        <Text style={styles.middleHeader}>{titleText}</Text>
-        <Text style={styles.middleText}>{subText}</Text>
-      </View>
-      <View style={styles.bottom}>
-        <TouchableOpacity
-          style={styles.continueBtn}
-          onPress={() => {
-            dataIndex < arrayLength - 1
-              ? setDataIndex((prev) => prev + 1)
-              : skipCallback();
-          }}
-        >
-          <Text style={styles.continueText}>Continue</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    </MySafeAreaView>
   );
 };
 
 export default Tutorial;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.color1,
-    padding: 7,
-  },
   top: {
     flex: 0.05,
     alignItems: "flex-end",
@@ -57,26 +52,23 @@ const styles = StyleSheet.create({
   topText: {
     fontSize: 17,
     color: colors.white,
-    fontWeight: "800",
+    fontFamily: globalStyles.fonts.font_500,
   },
   middle: {
     flex: 0.75,
-    // justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "green",
   },
   image: {
     flex: 1,
-    width: 250,
+    width: "100%",
   },
   middleHeader: {
     flex: 0.4,
     fontSize: 32,
     textAlign: "center",
     paddingTop: 25,
-    fontWeight: "800",
+    fontFamily: globalStyles.fonts.font_500,
     color: colors.white,
-    // backgroundColor: "red",
   },
   middleText: {
     flex: 0.3,
@@ -84,8 +76,8 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     fontSize: 18,
-    color: colors.white,
-    opacity: 0.8,
+    color: colors.dimWhite,
+    fontFamily: globalStyles.fonts.font_300,
   },
   bottom: {
     flex: 0.2,
@@ -93,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   continueBtn: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.white,
     width: 220,
     height: 50,
     borderRadius: 10,
@@ -102,8 +94,8 @@ const styles = StyleSheet.create({
   },
   continueText: {
     fontSize: 15,
-    fontWeight: "bold",
-    color: colors.color1,
+    fontFamily: globalStyles.fonts.font_500,
+    color: colors.dark2,
     textAlign: "center",
   },
 });

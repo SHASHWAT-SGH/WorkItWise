@@ -1,7 +1,7 @@
 import { StyleSheet, Text, Pressable, View } from "react-native";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
-
+import globalStyles from "../../global/styles";
 import colors from "../../global/colors";
 
 const DiaryTemplate = ({ name, description, selected }) => {
@@ -11,7 +11,7 @@ const DiaryTemplate = ({ name, description, selected }) => {
       <Pressable
         style={styles.container}
         onPress={() => setIsDropdownVisible(!isDropdownVisible)}
-        android_ripple={{ color: colors.dark5 }}
+        android_ripple={{ color: colors.dark1 }}
       >
         <View style={styles.left}>
           <View style={styles.wrapper}>
@@ -70,7 +70,7 @@ export default DiaryTemplate;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.dark1,
+    backgroundColor: colors.dark2,
     borderRadius: 5,
     marginBottom: 8,
     minHeight: 90,
@@ -91,14 +91,17 @@ const styles = StyleSheet.create({
   },
   name: {
     color: colors.white,
-    fontWeight: "bold",
-    fontSize: 15,
+    fontFamily: globalStyles.fonts.font_500,
+    fontSize: 16,
   },
   description: {
     color: colors.dimWhite,
+    fontFamily: globalStyles.fonts.font_400,
+    marginTop: 1,
+    fontSize: 13,
   },
   circle: {
-    backgroundColor: colors.color1,
+    backgroundColor: colors.dark2,
     borderRadius: 40,
     padding: 4,
   },
