@@ -64,7 +64,6 @@ const SignUpScreen = ({ navigation }) => {
             placeholderTextColor={colors.white}
             onChangeText={setFname}
             textContentType="name"
-            autoCapitalize="none"
           />
           <TextInput
             value={lname}
@@ -73,7 +72,6 @@ const SignUpScreen = ({ navigation }) => {
             placeholderTextColor={colors.white}
             onChangeText={setLname}
             textContentType="name"
-            autoCapitalize="none"
           />
           <TextInput
             value={email}

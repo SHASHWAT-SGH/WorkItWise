@@ -13,8 +13,7 @@ import { Image } from "expo-image";
 import useAuth from "../contexts/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // axios
-// import { setAxiosAuthToken } from "../utils/axiosInstance";
-// import { axiosInstance } from "../utils/axiosInstance";
+import { axiosInstance, setAxiosAuthToken } from "../utils/axiosInstance";
 import MySafeAreaView from "../components/MySafeAreaView";
 import globalStyles from "../global/styles";
 
@@ -23,21 +22,21 @@ const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async () => {
-    // await axiosInstance
-    //   .post("/auth/login", {
-    //     email: username,
-    //     password: password,
-    //   })
-    //   .then((res) => {
-    //     if (res.status == 202) {
-    //       const token = res.data.access_token;
-    //       setAxiosAuthToken(token);
-    //       AsyncStorage.setItem("token", token);
-    //       setIsAuthenticated(true);
-    //     }
-    //   })
-    //   .catch((error) => console.log(error));
+  const handleLogin = async () => {
+    await axiosInstance
+      .post("/v1/auth/login", {
+        email: username,
+        password: password,
+      })
+      .then((res) => {
+        if (res.status == 202) {
+          const token = res.data.access_token;
+          setAxiosAuthToken(token);
+          AsyncStorage.setItem("access_token", token);
+          setIsAuthenticated(true);
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -79,7 +78,7 @@ const LoginScreen = ({ navigation }) => {
             style={styles.btn}
             activeOpacity={0.8}
             underlayColor={colors.color3}
-            onPress={handleSubmit}
+            onPress={handleLogin}
           >
             <Text style={styles.btnText}>LOGIN</Text>
           </TouchableHighlight>
