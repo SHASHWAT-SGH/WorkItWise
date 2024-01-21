@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,25 +25,36 @@ public class User implements UserDetails {
     @GeneratedValue
     @Column(nullable = false)
     private Integer userId;
+
     @Column(nullable = false)
     private String firstName;
+
     private String lastName;
+
     @Column(nullable = false)
     private String userEmail;
+
     @Column(nullable = false)
     private String userPassword;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role userRole;
 
-    @Column(columnDefinition = "boolean default false")
-    private Boolean accountExpired=true;
-    @Column(columnDefinition = "boolean default false")
-    private Boolean accountLocked=true;
-    @Column(columnDefinition = "boolean default false")
-    private Boolean credentialsExpired=true;
-    @Column(columnDefinition = "boolean default true")
-    private Boolean enabled=true;
+    @Column(nullable = false)
+    private LocalDate createdAt;
+
+    @Column(nullable = false)
+    private LocalDate modifiedAt;
+
+    @Column(nullable = false)
+    private Boolean accountExpired;
+    @Column(nullable = false)
+    private Boolean accountLocked;
+    @Column(nullable = false)
+    private Boolean credentialsExpired;
+    @Column(nullable = false)
+    private Boolean enabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
