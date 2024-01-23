@@ -35,7 +35,6 @@ public class AuthenticationService {
             throw new UserAlreadyExistsException("This email is already registered.");
         }
 
-        LocalDate date = LocalDate.now();
         var user = User
                 .builder()
                 .firstName(request.getFirstname())
@@ -43,16 +42,21 @@ public class AuthenticationService {
                 .userEmail(request.getEmail())
                 .userPassword(passwordEncoder.encode(request.getPassword()))
                 .userRole(Role.USER)
-                .createdAt(date)
-                .modifiedAt(date)
                 .enabled(true)
                 .credentialsExpired(false)
                 .accountExpired(false)
                 .accountLocked(false)
                 .build();
+
         userRepository.save(user);
         var token = jwtService.generateJwtToken(user);
-        return AuthenticationResponse.builder().token(token).build();
+        return AuthenticationResponse
+                .builder()
+                .token(token)
+                .email(user.getUserEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .build();
     }
 
     public AuthenticationResponse login(@NotNull LoginRequest request) {
@@ -66,7 +70,13 @@ public class AuthenticationService {
 
         var user = userRepository.findByUserEmail(request.getEmail()).orElseThrow(()->new UsernameNotFoundException("Invalid User!"));
         var token = jwtService.generateJwtToken(user);
-        return AuthenticationResponse.builder().token(token).build();
+        return AuthenticationResponse
+                .builder()
+                .token(token)
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getUserEmail())
+                .build();
 
     }
 }

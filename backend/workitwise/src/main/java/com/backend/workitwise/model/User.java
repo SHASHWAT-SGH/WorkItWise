@@ -6,11 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,11 +44,11 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Role userRole;
 
-    @Column(nullable = false)
-    private LocalDate createdAt;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private LocalDate modifiedAt;
+    @UpdateTimestamp
+    private LocalDateTime modifiedAt;
 
     @Column(nullable = false)
     private Boolean accountExpired;
