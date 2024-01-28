@@ -3,12 +3,13 @@ package com.backend.workitwise.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Builder
-public class CreateDiaryResponse {
+@AllArgsConstructor
+public class DiaryResponse {
     private Integer diaryId;
-    private String name;
-    private String description;
+    private String diaryName;
+    private String diaryDescription;
 }

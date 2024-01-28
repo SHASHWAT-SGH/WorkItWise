@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class CreateDiaryRequest {
 
     @NotNull(message = "Required parameter.")

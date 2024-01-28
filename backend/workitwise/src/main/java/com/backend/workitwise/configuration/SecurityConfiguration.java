@@ -23,7 +23,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(@NonNull HttpSecurity http) throws Exception {
         http.csrf()
                 .disable().authorizeHttpRequests()
-                .requestMatchers("/auth/v1/**")
+                .requestMatchers("/auth/v1/**", "/media/v1/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

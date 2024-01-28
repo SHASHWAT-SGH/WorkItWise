@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class SignupRequest {
     @Size(min = 3, message = "First name too small.")
     @Size(max = 15, message = "First name too big.")
