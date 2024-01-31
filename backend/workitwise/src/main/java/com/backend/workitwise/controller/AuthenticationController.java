@@ -8,6 +8,7 @@ import com.backend.workitwise.validator.RequestParameterValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,6 +22,7 @@ public class AuthenticationController {
 
     @GetMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request){
+
         loginRequestDtoValidator.validate(request);
         return new ResponseEntity<>(authenticationService.login(request), HttpStatus.OK);
     }

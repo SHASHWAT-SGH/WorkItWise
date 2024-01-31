@@ -1,5 +1,6 @@
 package com.backend.workitwise.configuration;
 
+//import com.backend.workitwise.filter.DiaryFilter;
 import com.backend.workitwise.filter.JwtAuthenticationFilter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,12 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
+//    private final DiaryFilter diaryFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(@NonNull HttpSecurity http) throws Exception {
         http.csrf()
                 .disable().authorizeHttpRequests()
-                .requestMatchers("/auth/v1/**")
+                .requestMatchers("/auth/v1/**", "/media/v1/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -33,6 +35,7 @@ public class SecurityConfiguration {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//                .addFilterAfter(diaryFilter, JwtAuthenticationFilter.class);
 
         return http.build();
     }

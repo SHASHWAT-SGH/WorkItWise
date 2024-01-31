@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 @Component
 @RequiredArgsConstructor
@@ -54,6 +55,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             }
 
+            /*
+                headers added in the request are:
+                authorization
+                user-agent
+                accept
+                postman-token
+                host
+                accept-encoding
+                connection
+            */
             filterChain.doFilter(request, response);
 
         }
