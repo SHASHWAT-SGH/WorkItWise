@@ -5,9 +5,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,9 +18,9 @@ import java.nio.file.Paths;
 @RequestMapping("/media/v1")
 @RequiredArgsConstructor
 public class MediaController {
-    @GetMapping(value = "/exercise-category-image", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<Resource> getExerciseImage(){
-        Path file = Paths.get("src/assets", "download.jpg");
+    @GetMapping(value = "/exercise-category-image/{path}", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<Resource> getExerciseImage(@PathVariable String path){
+        Path file = Paths.get("src/assets/exercise/muscle-grp-category", path);
         Resource resource = null;
         try {
             resource = new UrlResource(file.toUri());
@@ -33,9 +31,9 @@ public class MediaController {
         return ResponseEntity.ok().body(resource);
     }
 
-    @GetMapping(value = "/exercise-gif", produces = MediaType.IMAGE_GIF_VALUE)
-    public ResponseEntity<Resource> getExerciseGif(){
-        Path file = Paths.get("src/assets", "a.gif");
+    @GetMapping(value = "/exercise-gif/{category}/{fileName}", produces = MediaType.IMAGE_GIF_VALUE)
+    public ResponseEntity<Resource> getExerciseGif(@PathVariable String category, @PathVariable String fileName){
+        Path file = Paths.get("src/assets/exercise/gif", category, fileName);
         Resource resource = null;
         try {
             resource = new UrlResource(file.toUri());

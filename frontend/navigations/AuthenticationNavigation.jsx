@@ -21,7 +21,7 @@ const AuthenticationNavigation = () => {
     >
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="signUpScreen" component={SignUpScreen} />
-      <Stack.Screen name="homeScreen" component={HomeScreen} />
+      {/* <Stack.Screen name="homeScreen" component={HomeScreen} /> */}
     </Stack.Navigator>
   );
 };
