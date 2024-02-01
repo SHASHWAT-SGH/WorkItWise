@@ -1,4 +1,8 @@
 import colors from "./colors";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const globalStyles = {
   fonts: {
@@ -19,7 +23,7 @@ const globalStyles = {
   },
   h1: {
     fontFamily: "Rubik_500Medium",
-    fontSize: 16,
+    fontSize: hp(2.4),
     color: colors.white,
   },
 };

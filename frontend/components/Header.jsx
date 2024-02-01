@@ -3,6 +3,10 @@ import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import colors from "../global/colors";
 import globalStyles from "../global/styles";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const Header = ({ showMenu, screenName, showUserIcon }) => {
   return (
@@ -39,13 +43,15 @@ export default Header;
 
 const styles = StyleSheet.create({
   navBar: {
-    height: 34,
+    height: hp(4.6),
+    // flex: 0.1,
     alignItems: "center",
     flexDirection: "row",
-    marginBottom: 12,
+    marginBottom: hp(2.4),
+    // backgroundColor: "green",
   },
   navBtn: {
-    width: 23,
+    width: wp(6.6),
     borderRadius: 6,
   },
   menuIcon: {
@@ -55,8 +61,8 @@ const styles = StyleSheet.create({
   },
   screenName: { flex: 1, alignItems: "center" },
   userNameIcon: {
-    width: 32,
-    height: 32,
+    width: wp(9),
+    height: wp(9),
     borderRadius: 8,
     backgroundColor: colors.dark2,
     marginLeft: "auto",
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
   },
   userNameLetter: {
     flex: 1,
-    fontSize: 25,
+    fontSize: hp(3.4),
     textAlign: "center",
     textAlignVertical: "center",
     color: colors.white,

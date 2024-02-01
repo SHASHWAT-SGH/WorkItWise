@@ -5,6 +5,7 @@ import colors from "../global/colors";
 import Greeting from "../components/homeScreen/Greeting";
 import StartWorkOutBtn from "../components/homeScreen/StartWorkOutBtn";
 import Header from "../components/Header";
+import WorkLoadDistribution from "../components/homeScreen/WorkLoadDistribution";
 
 const HomeScreen = () => {
   return (
@@ -12,6 +13,7 @@ const HomeScreen = () => {
       <Header showMenu={true} screenName={"Home"} showUserIcon={true} />
       <ScrollView>
         <Greeting />
+        <WorkLoadDistribution />
       </ScrollView>
       <StartWorkOutBtn />
     </MySafeAreaView>
