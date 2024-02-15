@@ -6,6 +6,8 @@ import Greeting from "../components/homeScreen/Greeting";
 import StartWorkOutBtn from "../components/homeScreen/StartWorkOutBtn";
 import Header from "../components/Header";
 import WorkLoadDistribution from "../components/homeScreen/WorkLoadDistribution";
+import WeeklyWorkGraph from "../components/homeScreen/WeeklyWorkGraph";
+import PreviousWorkouts from "../components/homeScreen/PreviousWorkouts";
 
 const HomeScreen = () => {
   return (
@@ -13,6 +15,8 @@ const HomeScreen = () => {
       <Header showMenu={true} screenName={"Home"} showUserIcon={true} />
       <ScrollView>
         <Greeting />
+        <WeeklyWorkGraph />
+        <PreviousWorkouts />
         <WorkLoadDistribution />
       </ScrollView>
       <StartWorkOutBtn />

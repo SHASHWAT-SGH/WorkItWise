@@ -11,6 +11,8 @@ import {
 const WorkLoadDistribution = () => {
   const widthAndHeight = wp(47);
   const series = [123, 321, 123, 789, 537];
+  const total = series.reduce((a, b) => a + b);
+
   const sliceColor = ["#fbd203", "#ffb300", "#ff9100", "#ff6c00", "#ff3c00"];
   const legends = ["back", "chest", "head", "cardio", "leg"];
   return (
@@ -34,7 +36,9 @@ const WorkLoadDistribution = () => {
                     { backgroundColor: sliceColor[index] },
                   ]}
                 ></View>
-                <Text style={styles.legendText}>{item}</Text>
+                <Text style={styles.legendText}>
+                  {item} ({Math.round((series[index] / total) * 100)} %)
+                </Text>
               </View>
             );
           })}
@@ -48,20 +52,20 @@ export default WorkLoadDistribution;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: wp(4),
-    backgroundColor: colors.dark2,
-    padding: wp(4),
-    borderRadius: wp(3),
+    marginTop: hp(4),
   },
   heading: {
     color: colors.white,
+    fontSize: hp(2.8),
     fontFamily: globalStyles.fonts.font_500,
-    fontSize: hp(2.7),
-    marginBottom: wp(4),
   },
   wrapper: {
+    backgroundColor: colors.dark2,
+    padding: wp(4),
+    borderRadius: wp(3),
     display: "flex",
     flexDirection: "row",
+    marginTop: hp(3),
   },
   left: {
     // backgroundColor: "red",
