@@ -58,10 +58,10 @@ export default function App() {
       start={{ x: 0, y: 0.03 }}
       end={{ x: 0.32, y: 0.32 }}
     >
-      {/* <NavigationContainer>
+      <NavigationContainer>
         <AuthenticationNavigation />
-      </NavigationContainer> */}
-      <TutorialScreen />
+      </NavigationContainer>
+      {/* <TutorialScreen /> */}
       <StatusBar style="light" />
     </LinearGradient>
   );

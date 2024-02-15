@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 10,
     paddingBottom: 6,
+    backgroundColor: colors.dark1,
   },
   btn: {
     backgroundColor: colors.dark2,

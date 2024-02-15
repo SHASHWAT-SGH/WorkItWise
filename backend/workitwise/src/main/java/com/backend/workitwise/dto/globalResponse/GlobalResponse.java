@@ -1,4 +1,4 @@
-package com.backend.workitwise.dto;
+package com.backend.workitwise.dto.globalResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

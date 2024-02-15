@@ -1,6 +1,7 @@
 package com.backend.workitwise.service;
 
 import com.backend.workitwise.dto.*;
+import com.backend.workitwise.dto.globalResponse.GlobalResponse;
 import com.backend.workitwise.exception.UnauthorizedException;
 import com.backend.workitwise.model.Diary;
 import com.backend.workitwise.model.User;
