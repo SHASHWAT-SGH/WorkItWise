@@ -1,6 +1,7 @@
 package com.backend.workitwise.controller;
 
 import com.backend.workitwise.dto.*;
+import com.backend.workitwise.dto.globalResponse.GlobalResponse;
 import com.backend.workitwise.model.User;
 import com.backend.workitwise.service.DiaryService;
 import lombok.RequiredArgsConstructor;
