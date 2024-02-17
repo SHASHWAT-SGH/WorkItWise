@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -15,9 +19,15 @@ import lombok.NoArgsConstructor;
 public class Units {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer unitId;
 
     @Column(unique = true, nullable = false)
     private String unit;
+
+    @CreationTimestamp(source = SourceType.DB)
+    private LocalDateTime createdAt;
+
+    @CreationTimestamp(source = SourceType.DB)
+    private LocalDateTime modifiedAt;
 }
