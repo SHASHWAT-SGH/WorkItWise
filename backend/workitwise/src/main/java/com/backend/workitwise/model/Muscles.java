@@ -24,7 +24,7 @@ public class Muscles {
     private Integer muscleId;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    private String muscle;
 
     @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdAt;
