@@ -6,10 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -19,33 +21,43 @@ import java.util.List;
 @Table(name = "exercises")
 public class Exercises {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer exerciseId;
 
     @Column(nullable = false)
     private String exerciseName;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category categoryId;
 
     private String equipment;
 
     private String gifUrl;
 
-    private String targetMuscle;
+    @ManyToOne
+    @JoinColumn(name = "target_muscle_id")
+    private Muscles targetMuscle;
 
-    @ElementCollection
-    private List<String> secondaryMuscles;
+    @ManyToMany
+    @JoinTable(
+            name = "exercise_secondary_muscles",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "muscle_id")
+    )
+    private Set<Muscles> secondaryMuscles;
 
-    @ElementCollection
-    private List<String> instructions;
+    @Column(columnDefinition = "json")
+    private String instructions;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
     private Units unitId;
 
-    @CreationTimestamp
+    @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
+    @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime modifiedAt;
+
 }

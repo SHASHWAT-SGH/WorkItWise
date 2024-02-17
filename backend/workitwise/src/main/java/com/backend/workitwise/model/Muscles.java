@@ -15,18 +15,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "muscles")
+
+public class Muscles {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer categoryId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer muscleId;
 
-    @Column(nullable = false, unique = true)
-    private String category;
-
-    @Column(nullable = false)
-    private  String imageUrl;
+    @Column(unique = true, nullable = false)
+    private String name;
 
     @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdAt;

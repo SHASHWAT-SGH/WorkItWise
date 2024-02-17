@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,8 +26,7 @@ import java.util.List;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
-    @Column(nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer userId;
 
     @Column(nullable = false)
@@ -44,10 +44,10 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Role userRole;
 
-    @CreationTimestamp
+    @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
+    @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime modifiedAt;
 
     @Column(nullable = false)

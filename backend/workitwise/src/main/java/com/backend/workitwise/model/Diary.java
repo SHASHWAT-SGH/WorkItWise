@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -18,10 +19,11 @@ import java.time.LocalDateTime;
 @Table(name = "user_diaries", uniqueConstraints = @UniqueConstraint(columnNames = {"user_user_id", "diary_name"}))
 public class Diary {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer diaryId;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(nullable = false)
@@ -33,10 +35,10 @@ public class Diary {
     @Column(nullable = false)
     private Boolean isActive;
 
-    @CreationTimestamp
+    @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
+    @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime modifiedAt;
 
 }
