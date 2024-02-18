@@ -60,4 +60,7 @@ public class Exercises {
     @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime modifiedAt;
 
+    @Column(nullable = false)
+    private Boolean isActive;
+
 }

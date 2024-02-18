@@ -23,6 +23,8 @@ public interface DiaryRepository extends JpaRepository<Diary, Integer> {
 
     List<DiaryResponse> findDiariesByUserUserId(Integer userUserId);
 
+    List<DiaryResponse> findDiariesByUserUserIdAndIsActiveIsTrue(Integer userId);
+
     @Transactional
     @Modifying
     @Query("update Diary set isActive = false where diaryId=:diaryId")

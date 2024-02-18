@@ -31,4 +31,7 @@ public class Muscles {
 
     @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime modifiedAt;
+
+    @Column(nullable = false)
+    private Boolean isActive;
 }

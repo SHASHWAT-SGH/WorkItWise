@@ -43,4 +43,6 @@ public class ExerciseHistory {
     @Column(nullable = false)
     private SetType setType;
 
+    @Column(nullable = false)
+    private Boolean isActive;
 }
