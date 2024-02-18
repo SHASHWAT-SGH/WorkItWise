@@ -72,7 +72,7 @@ public class DiaryService {
     }
 
     public ListOfDiariesResponse getAllDiaries(@NotNull User principal) {
-        List<DiaryResponse> diaryList = diaryRepository.findDiariesByUserUserId(principal.getUserId());
+        List<DiaryResponse> diaryList = diaryRepository.findDiariesByUserUserIdAndIsActiveIsTrue(principal.getUserId());
         return ListOfDiariesResponse
                 .builder()
                 .size(diaryList.size())

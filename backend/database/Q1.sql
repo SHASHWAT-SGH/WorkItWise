@@ -1,4 +1,5 @@
 use test;
+
 create database if not exists test;
 show tables;
 set sql_safe_updates=0;
@@ -105,7 +106,7 @@ select test.exercises.exercise_id, test.muscles.muscle from test.exercises
 inner join test.exercise_secondary_muscles on test.exercise_secondary_muscles.exercise_id = test.exercises.exercise_id
 inner join test.muscles on test.muscles.muscle_id = test.exercise_secondary_muscles.muscle_id order by test.exercises.exercise_id limit 4000;
 
-
+-- ============================================================  =================================================
 
 -- ============================================================ OLD =================================================
 select * from workitwise.units;
