@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -39,7 +40,7 @@ public class Exercises {
     @JoinColumn(name = "target_muscle_id")
     private Muscles targetMuscle;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "exercise_secondary_muscles",
             joinColumns = @JoinColumn(name = "exercise_id"),
