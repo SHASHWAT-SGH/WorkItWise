@@ -1,5 +1,6 @@
 package com.backend.workitwise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder
@@ -16,7 +18,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "muscles")
-
 public class Muscles {
 
     @Id
@@ -34,4 +35,9 @@ public class Muscles {
 
     @Column(nullable = false)
     private Boolean isActive;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "secondaryMuscles",fetch = FetchType.LAZY)
+    private Set<Exercises> exercises;
+
 }

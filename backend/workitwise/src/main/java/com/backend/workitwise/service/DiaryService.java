@@ -1,6 +1,7 @@
 package com.backend.workitwise.service;
 
 import com.backend.workitwise.dto.*;
+import com.backend.workitwise.dto.globalResponse.GlobalListResponse;
 import com.backend.workitwise.dto.globalResponse.GlobalResponse;
 import com.backend.workitwise.exception.UnauthorizedException;
 import com.backend.workitwise.model.Diary;
@@ -71,12 +72,11 @@ public class DiaryService {
                 .build();
     }
 
-    public ListOfDiariesResponse getAllDiaries(@NotNull User principal) {
+    public GlobalListResponse<DiaryResponse> getAllDiaries(@NotNull User principal) {
         List<DiaryResponse> diaryList = diaryRepository.findDiariesByUserUserIdAndIsActiveIsTrue(principal.getUserId());
-        return ListOfDiariesResponse
-                .builder()
+        return GlobalListResponse.<DiaryResponse>builder()
                 .size(diaryList.size())
-                .diaries(diaryList)
+                .data(diaryList)
                 .build();
     }
 }
