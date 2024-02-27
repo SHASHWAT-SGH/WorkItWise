@@ -14,5 +14,10 @@ import java.util.List;
 public interface ExerciseRepository extends JpaRepository<Exercises, Integer> {
     @Query("select e from Exercises e order by e.exerciseId asc")
     List<ExerciseInformation> getAllExercises();
-    
+
+    @Query("select e from Exercises e where e.categoryId.category = :category order by e.exerciseId asc")
+    List<ExerciseInformation> getExercisesByCategory(String category);
+
+    @Query("select e from Exercises e where e.exerciseName like %:name% order by e.exerciseId asc")
+    List<ExerciseInformation> getExercisesByName(String name);
 }

@@ -19,4 +19,20 @@ public class ExercisesService {
         List<ExerciseInformation> list = exerciseRepository.getAllExercises();
         return GlobalListResponse.<ExerciseInformation>builder().size(list.size()).data(list).build();
     }
+
+    public GlobalListResponse<ExerciseInformation> getExerciseByCategory(String category) {
+        List<ExerciseInformation> list = exerciseRepository.getExercisesByCategory(category);
+        return GlobalListResponse.<ExerciseInformation>builder()
+                .size(list.size())
+                .data(list)
+                .build();
+    }
+
+    public GlobalListResponse<ExerciseInformation> getExerciseByName(String name) {
+        List<ExerciseInformation> list = exerciseRepository.getExercisesByName(name);
+        return GlobalListResponse.<ExerciseInformation>builder()
+                .size(list.size())
+                .data(list)
+                .build();
+    }
 }
