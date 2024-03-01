@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import { LinearGradient } from "expo-linear-gradient";
+import { ToastProvider } from "react-native-toast-notifications";
 import {
   useFonts,
   Rubik_300Light,
@@ -58,11 +59,13 @@ export default function App() {
       start={{ x: 0, y: 0.03 }}
       end={{ x: 0.32, y: 0.32 }}
     >
-      <NavigationContainer>
-        <AuthenticationNavigation />
-      </NavigationContainer>
-      {/* <TutorialScreen /> */}
-      <StatusBar style="light" />
+      <ToastProvider>
+        <NavigationContainer>
+          <AuthenticationNavigation />
+        </NavigationContainer>
+        {/* <TutorialScreen /> */}
+        <StatusBar style="light" />
+      </ToastProvider>
     </LinearGradient>
   );
 }

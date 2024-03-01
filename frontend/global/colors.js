@@ -5,5 +5,6 @@ const colors = {
   dark2: "#232240",
   yellow1: "#ffc003",
   links: "#5170ff",
+  border: "#68696b",
 };
 export default colors;

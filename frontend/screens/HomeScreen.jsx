@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import MySafeAreaView from "../components/MySafeAreaView";
 import colors from "../global/colors";
@@ -9,15 +9,22 @@ import WorkLoadDistribution from "../components/homeScreen/WorkLoadDistribution"
 import WeeklyWorkGraph from "../components/homeScreen/WeeklyWorkGraph";
 import PreviousWorkouts from "../components/homeScreen/PreviousWorkouts";
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 const HomeScreen = () => {
   return (
     <MySafeAreaView>
       <Header showMenu={true} screenName={"Home"} showUserIcon={true} />
-      <ScrollView>
-        <Greeting />
-        <WeeklyWorkGraph />
-        <PreviousWorkouts />
-        <WorkLoadDistribution />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{ paddingBottom: hp(12), flex: 1 }}>
+          <Greeting />
+          <WeeklyWorkGraph />
+          <PreviousWorkouts />
+          <WorkLoadDistribution />
+        </View>
       </ScrollView>
       <StartWorkOutBtn />
     </MySafeAreaView>

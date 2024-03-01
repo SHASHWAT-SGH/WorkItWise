@@ -7,11 +7,19 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
-const Header = ({ showMenu, screenName, showUserIcon }) => {
+const Header = ({
+  showMenu,
+  screenName,
+  showUserIcon,
+  showAddBtn,
+  showSearchBtn,
+}) => {
   return (
     <View style={styles.navBar}>
-      {/* menu icon */}
+      {/* menu icon or back button*/}
       {showMenu ? (
         <Pressable
           android_ripple={{ color: colors.white, radius: 15 }}
@@ -24,7 +32,16 @@ const Header = ({ showMenu, screenName, showUserIcon }) => {
             <FontAwesome name="square" size={12} color={colors.white} />
           </View>
         </Pressable>
-      ) : null}
+      ) : (
+        <Pressable
+          android_ripple={{ color: colors.white, radius: 15 }}
+          style={styles.navBtn}
+        >
+          <View>
+            <Ionicons name="arrow-back" size={hp(3.4)} color={colors.white} />
+          </View>
+        </Pressable>
+      )}
       {/* Name of Screen */}
       <View style={styles.screenName}>
         <Text style={globalStyles.h1}>{screenName}</Text>
@@ -34,6 +51,28 @@ const Header = ({ showMenu, screenName, showUserIcon }) => {
         <View style={styles.userNameIcon}>
           <Text style={[styles.userNameLetter]}>S</Text>
         </View>
+      ) : null}
+      {/* Search button */}
+      {showSearchBtn ? (
+        <Pressable
+          android_ripple={{ color: colors.white, radius: 15 }}
+          style={styles.navBtn}
+        >
+          <View style={{ marginRight: wp(2) }}>
+            <MaterialIcons name="search" size={hp(3.4)} color={colors.white} />
+          </View>
+        </Pressable>
+      ) : null}
+      {/* Add button */}
+      {showAddBtn ? (
+        <Pressable
+          android_ripple={{ color: colors.white, radius: 15 }}
+          style={styles.navBtn}
+        >
+          <View>
+            <MaterialIcons name="add" size={hp(3.4)} color={colors.white} />
+          </View>
+        </Pressable>
       ) : null}
     </View>
   );
@@ -51,15 +90,18 @@ const styles = StyleSheet.create({
     // backgroundColor: "green",
   },
   navBtn: {
-    width: wp(6.6),
     borderRadius: 6,
   },
   menuIcon: {
+    width: wp(6.6),
     flexDirection: "row",
     columnGap: 1.8,
     flexWrap: "wrap",
   },
-  screenName: { flex: 1, alignItems: "center" },
+  screenName: {
+    flex: 1,
+    alignItems: "center",
+  },
   userNameIcon: {
     width: wp(9),
     height: wp(9),
