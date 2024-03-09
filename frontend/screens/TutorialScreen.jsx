@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Tutorial from "../components/tutorials/Tutorial";
 
 const data = [
@@ -23,6 +23,7 @@ const data = [
 ];
 
 const TutorialScreen = () => {
+  const [endReached, setEndReached] = useState(false);
   return (
     <FlatList
       data={data}
@@ -37,7 +38,7 @@ const TutorialScreen = () => {
         />
       )}
       onEndReached={() => {
-        console.log("end reached");
+        setEndReached(true);
       }}
     />
   );

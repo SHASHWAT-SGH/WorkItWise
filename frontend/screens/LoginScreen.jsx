@@ -11,11 +11,12 @@ import React, { useState } from "react";
 import colors from "../global/colors";
 import { Image } from "expo-image";
 import useAuth from "../contexts/AuthContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 // axios
 import { axiosInstance, setAxiosAuthToken } from "../utils/axiosInstance";
 import MySafeAreaView from "../components/MySafeAreaView";
 import globalStyles from "../global/styles";
+import authenticationApi from "../apis/authentication";
+import { storeAsyncData } from "../utils/asyncStorage";
 
 const LoginScreen = ({ navigation }) => {
   const { setIsAuthenticated } = useAuth();
@@ -24,19 +25,21 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     await axiosInstance
-      .post("/v1/auth/login", {
+      .post(authenticationApi.LOGIN_API, {
         email: username,
         password: password,
       })
       .then((res) => {
-        if (res.status == 202) {
-          const token = res.data.access_token;
+        if (res.status == 200) {
+          console.log(res.data);
+          const token = res.data.token;
           setAxiosAuthToken(token);
-          AsyncStorage.setItem("access_token", token);
+          storeAsyncData("AUTH_TOKEN", token);
           setIsAuthenticated(true);
+          navigation.replace("homeScreen");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 
   return (
