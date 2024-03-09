@@ -10,6 +10,7 @@ import { Image } from "expo-image";
 import colors from "../../global/colors";
 import MySafeAreaView from "../MySafeAreaView";
 import globalStyles from "../../global/styles";
+import { storeAsyncData } from "../../utils/asyncStorage";
 
 const Tutorial = ({ illustratorUrl, titleText, subText }) => {
   const windowWidth = useWindowDimensions().width;
@@ -32,7 +33,12 @@ const Tutorial = ({ illustratorUrl, titleText, subText }) => {
           <Text style={styles.middleText}>{subText}</Text>
         </View>
         <View style={styles.bottom}>
-          <TouchableOpacity style={styles.continueBtn} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.continueBtn}
+            onPress={() => {
+              storeAsyncData(firstTime, false);
+            }}
+          >
             <Text style={styles.continueText}>Continue</Text>
           </TouchableOpacity>
         </View>

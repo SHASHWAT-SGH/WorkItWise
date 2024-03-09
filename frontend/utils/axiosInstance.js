@@ -1,10 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "http://192.168.142.156:8000";
-
-export const axiosInstance = axios.create({
-  baseURL: API_URL, // Replace with your API base URL
-});
+export const axiosInstance = axios.create();
 
 export const setAxiosAuthToken = (token) => {
   if (token) {

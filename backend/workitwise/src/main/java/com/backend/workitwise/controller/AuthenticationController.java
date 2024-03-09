@@ -20,7 +20,7 @@ public class AuthenticationController {
     private final RequestParameterValidator<SignupRequest> signupRequestDtoValidator;
     private final RequestParameterValidator<LoginRequest> loginRequestDtoValidator;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request){
 
         loginRequestDtoValidator.validate(request);

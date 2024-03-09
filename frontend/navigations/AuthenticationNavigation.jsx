@@ -22,10 +22,15 @@ const AuthenticationNavigation = () => {
         contentStyle: { backgroundColor: "transparent" },
       }}
     >
-      {/* <Stack.Screen name="loginScreen" component={LoginScreen} />
-      <Stack.Screen name="signUpScreen" component={SignUpScreen} /> */}
-      {/* <Stack.Screen name="homeScreen" component={HomeScreen} /> */}
-      <Stack.Screen name="test" component={ExerciseList} />
+      <Stack.Screen name="loginScreen" component={LoginScreen} />
+      <Stack.Screen name="signUpScreen" component={SignUpScreen} />
+      <Stack.Screen name="homeScreen" component={HomeScreen} />
+      <Stack.Screen name="categoryScreen" component={CategoryScreen} />
+      <Stack.Screen name="exerciseList" component={ExerciseList} />
+      <Stack.Screen
+        name="exerciseInformation"
+        component={ExerciseInformation}
+      />
     </Stack.Navigator>
   );
 };
