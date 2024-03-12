@@ -25,6 +25,7 @@ public class SignupRequest {
 
     @Email(message = "Invalid Email.")
     @NotNull(message = "Required parameter.")
+    @Pattern(regexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Invalid email.")
     private String email;
 
     @Size(min = 8, message = "Password should have at least 8 characters.")
