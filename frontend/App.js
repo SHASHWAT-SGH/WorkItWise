@@ -3,6 +3,8 @@ import { StyleSheet, useWindowDimensions } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import { ToastProvider } from "react-native-toast-notifications";
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import {
   useFonts,
   Rubik_300Light,
@@ -26,6 +28,7 @@ import SignUpScreen from "./screens/SignUpScreen";
 import AuthenticationNavigation from "./navigations/AuthenticationNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import TutorialScreen from "./screens/TutorialScreen";
+import colors from "./global/colors";
 
 export default function App() {
   const windowHeight = useWindowDimensions().height;
@@ -59,7 +62,16 @@ export default function App() {
       start={{ x: 0, y: 0.03 }}
       end={{ x: 0.32, y: 0.32 }}
     >
-      <ToastProvider>
+      <ToastProvider
+        placement="bottom"
+        duration={5000}
+        animationType="slide-in"
+        offset={50}
+        swipeEnabled={true}
+        dangerIcon={
+          <MaterialIcons name="error-outline" size={24} color={colors.white} />
+        }
+      >
         <NavigationContainer>
           <AuthenticationNavigation />
         </NavigationContainer>

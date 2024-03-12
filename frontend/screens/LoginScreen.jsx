@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import colors from "../global/colors";
 import { Image } from "expo-image";
 import useAuth from "../contexts/AuthContext";
@@ -17,11 +17,23 @@ import MySafeAreaView from "../components/MySafeAreaView";
 import globalStyles from "../global/styles";
 import authenticationApi from "../apis/authentication";
 import { storeAsyncData } from "../utils/asyncStorage";
+import { useToast } from "react-native-toast-notifications";
 
 const LoginScreen = ({ navigation }) => {
   const { setIsAuthenticated } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const toast = useToast();
+
+  const handleSubmit = () => {
+    if (username.length > 3 && password.length > 5) {
+      handleLogin();
+    } else {
+      toast.show("Email and password required", {
+        type: "danger",
+      });
+    }
+  };
 
   const handleLogin = async () => {
     await axiosInstance
@@ -31,6 +43,9 @@ const LoginScreen = ({ navigation }) => {
       })
       .then((res) => {
         if (res.status == 200) {
+          toast.show("Login success.", {
+            type: "success",
+          });
           console.log(res.data);
           const token = res.data.token;
           setAxiosAuthToken(token);
@@ -39,7 +54,21 @@ const LoginScreen = ({ navigation }) => {
           navigation.replace("homeScreen");
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error.response.data);
+        const response = error.response.data;
+        if (typeof response === "object") {
+          Object.keys(response).forEach((key) => {
+            toast.show(response[key], {
+              type: "danger",
+            });
+          });
+        } else {
+          toast.show(response, {
+            type: "danger",
+          });
+        }
+      });
   };
 
   return (
@@ -81,7 +110,7 @@ const LoginScreen = ({ navigation }) => {
             style={styles.btn}
             activeOpacity={0.8}
             underlayColor={colors.color3}
-            onPress={handleLogin}
+            onPress={handleSubmit}
           >
             <Text style={styles.btnText}>LOGIN</Text>
           </TouchableHighlight>

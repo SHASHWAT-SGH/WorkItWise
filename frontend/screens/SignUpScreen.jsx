@@ -11,14 +11,16 @@ import React, { useState } from "react";
 import colors from "../global/colors";
 import { Image } from "expo-image";
 import useAuth from "../contexts/AuthContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-// axios
-// import { setAxiosAuthToken } from "../utils/axiosInstance";
-// import { axiosInstance } from "../utils/axiosInstance";
+import { storeAsyncData } from "../utils/asyncStorage";
 import MySafeAreaView from "../components/MySafeAreaView";
 import globalStyles from "../global/styles";
+import authenticationApi from "../apis/authentication";
+import { useToast } from "react-native-toast-notifications";
+// axios
+import { axiosInstance, setAxiosAuthToken } from "../utils/axiosInstance";
 
 const SignUpScreen = ({ navigation }) => {
+  const toast = useToast();
   const { setIsAuthenticated } = useAuth();
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -27,20 +29,54 @@ const SignUpScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = async () => {
-    // await axiosInstance
-    //   .post("/auth/login", {
-    //     email: username,
-    //     password: password,
-    //   })
-    //   .then((res) => {
-    //     if (res.status == 202) {
-    //       const token = res.data.access_token;
-    //       setAxiosAuthToken(token);
-    //       AsyncStorage.setItem("token", token);
-    //       setIsAuthenticated(true);
-    //     }
-    //   })
-    //   .catch((error) => console.log(error));
+    // check if passwords matches or not
+    if (password === confirmPassword) {
+      // if match then signup
+      handleSignup();
+    } else {
+      // else show error
+      toast.show("Passwords do not match.", {
+        type: "danger",
+      });
+    }
+  };
+
+  const handleSignup = async () => {
+    await axiosInstance
+      .post(authenticationApi.SIGNUP_API, {
+        firstname: fname,
+        lastname: lname,
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          toast.show("Account created.", {
+            type: "success",
+          });
+          const token = res.data.token;
+          setAxiosAuthToken(token);
+          storeAsyncData("AUTH_TOKEN", token);
+          setIsAuthenticated(true);
+          navigation.pop();
+          navigation.replace("homeScreen");
+        }
+      })
+      .catch((error) => {
+        const response = error.response.data;
+        if (typeof response === "object") {
+          Object.keys(response).forEach((key) => {
+            toast.show(response[key], {
+              type: "danger",
+            });
+          });
+        } else {
+          toast.show(response, {
+            type: "danger",
+          });
+        }
+        // console.error("Register response => ", response);
+      });
   };
 
   return (
