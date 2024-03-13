@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
@@ -29,6 +30,7 @@ import AuthenticationNavigation from "./navigations/AuthenticationNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import TutorialScreen from "./screens/TutorialScreen";
 import colors from "./global/colors";
+import MainAppNavigation from "./navigations/MainAppNavigation";
 
 export default function App() {
   const windowHeight = useWindowDimensions().height;

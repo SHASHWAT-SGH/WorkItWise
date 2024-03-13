@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import colors from "../global/colors";
@@ -21,26 +27,20 @@ const Header = ({
     <View style={styles.navBar}>
       {/* menu icon or back button*/}
       {showMenu ? (
-        <Pressable
-          android_ripple={{ color: colors.white, radius: 15 }}
-          style={styles.navBtn}
-        >
+        <TouchableOpacity style={styles.navBtn}>
           <View style={styles.menuIcon}>
             <FontAwesome name="square" size={12} color={colors.white} />
             <FontAwesome name="square" size={12} color={colors.white} />
             <FontAwesome name="square" size={12} color={colors.white} />
             <FontAwesome name="square" size={12} color={colors.white} />
           </View>
-        </Pressable>
+        </TouchableOpacity>
       ) : (
-        <Pressable
-          android_ripple={{ color: colors.white, radius: 15 }}
-          style={styles.navBtn}
-        >
+        <TouchableOpacity style={styles.navBtn} onPress={console.log("back")}>
           <View>
             <Ionicons name="arrow-back" size={hp(3.4)} color={colors.white} />
           </View>
-        </Pressable>
+        </TouchableOpacity>
       )}
       {/* Name of Screen */}
       <View style={styles.screenName}>

@@ -13,21 +13,24 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import DrawerScreenWrapper from "../wrappers/DrawerScreenWrapper";
 
 const HomeScreen = () => {
   return (
-    <MySafeAreaView>
-      <Header showMenu={true} screenName={"Home"} showUserIcon={true} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ paddingBottom: hp(12), flex: 1 }}>
-          <Greeting />
-          <WeeklyWorkGraph />
-          <PreviousWorkouts />
-          <WorkLoadDistribution />
-        </View>
-      </ScrollView>
-      <StartWorkOutBtn />
-    </MySafeAreaView>
+    <DrawerScreenWrapper>
+      <MySafeAreaView>
+        <Header showMenu={true} screenName={"Home"} showUserIcon={true} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{ paddingBottom: hp(12), flex: 1 }}>
+            <Greeting />
+            <WeeklyWorkGraph />
+            <PreviousWorkouts />
+            <WorkLoadDistribution />
+          </View>
+        </ScrollView>
+        <StartWorkOutBtn />
+      </MySafeAreaView>
+    </DrawerScreenWrapper>
   );
 };
 
