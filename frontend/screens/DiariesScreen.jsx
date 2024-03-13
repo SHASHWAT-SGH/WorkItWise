@@ -5,6 +5,7 @@ import DiaryTemplate from "../components/diaries/DiaryTemplate";
 import { MaterialIcons } from "@expo/vector-icons";
 import colors from "../global/colors";
 import MySafeAreaView from "../components/MySafeAreaView";
+import DrawerScreenWrapper from "../wrappers/DrawerScreenWrapper";
 
 const DiariesScreen = () => {
   const [diaryList, setDiaryList] = useState(null);
@@ -40,38 +41,42 @@ const DiariesScreen = () => {
   }, []);
 
   return (
-    <MySafeAreaView>
-      <Header screenName={"My Diaries"} />
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.baseWrapper}>
-          {diaryList
-            ? diaryList.map((item) => {
-                return (
-                  <DiaryTemplate
-                    name={item.diary_name}
-                    description={item.diary_description}
-                    selected={
-                      item.diary_name.toLowerCase() == "my diary" ? true : false
-                    }
-                    key={item.diary_id}
-                  />
-                );
-              })
-            : null}
-        </ScrollView>
-      </View>
-      <Pressable
-        activeOpacity={0.6}
-        underlayColor={colors.color3}
-        style={styles.addBtn}
-        android_ripple={{ color: colors.color2 }}
-        onPress={() => {
-          // navigation.navigate("ModalViewExercises");
-        }}
-      >
-        <MaterialIcons name="add" size={35} color={colors.white} />
-      </Pressable>
-    </MySafeAreaView>
+    <DrawerScreenWrapper>
+      <MySafeAreaView>
+        <Header screenName={"My Diaries"} />
+        <View style={styles.container}>
+          <ScrollView contentContainerStyle={styles.baseWrapper}>
+            {diaryList
+              ? diaryList.map((item) => {
+                  return (
+                    <DiaryTemplate
+                      name={item.diary_name}
+                      description={item.diary_description}
+                      selected={
+                        item.diary_name.toLowerCase() == "my diary"
+                          ? true
+                          : false
+                      }
+                      key={item.diary_id}
+                    />
+                  );
+                })
+              : null}
+          </ScrollView>
+        </View>
+        <Pressable
+          activeOpacity={0.6}
+          underlayColor={colors.color3}
+          style={styles.addBtn}
+          android_ripple={{ color: colors.color2 }}
+          onPress={() => {
+            // navigation.navigate("ModalViewExercises");
+          }}
+        >
+          <MaterialIcons name="add" size={35} color={colors.white} />
+        </Pressable>
+      </MySafeAreaView>
+    </DrawerScreenWrapper>
   );
 };
 

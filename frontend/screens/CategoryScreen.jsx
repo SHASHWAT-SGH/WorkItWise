@@ -14,6 +14,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import colors from "../global/colors";
+import DrawerScreenWrapper from "../wrappers/DrawerScreenWrapper";
 
 // import { useToast } from "react-native-toast-notifications";
 
@@ -39,40 +40,42 @@ const CategoryScreen = () => {
   }, []);
 
   return (
-    <MySafeAreaView>
-      <Header
-        screenName={"Categories"}
-        showAddBtn={true}
-        showSearchBtn={true}
-      />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            colors={[colors.dark1]}
-            progressBackgroundColor={colors.links}
-            progressViewOffset={20}
-          />
-        }
-      >
-        <View style={styles.container}>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </View>
-      </ScrollView>
-    </MySafeAreaView>
+    <DrawerScreenWrapper>
+      <MySafeAreaView>
+        <Header
+          screenName={"Categories"}
+          showAddBtn={true}
+          showSearchBtn={true}
+        />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[colors.dark1]}
+              progressBackgroundColor={colors.links}
+              progressViewOffset={20}
+            />
+          }
+        >
+          <View style={styles.container}>
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+          </View>
+        </ScrollView>
+      </MySafeAreaView>
+    </DrawerScreenWrapper>
   );
 };
 

@@ -15,7 +15,6 @@ import {
 } from "react-native-responsive-screen";
 import colors from "../global/colors";
 import globalStyles from "../global/styles";
-import { Touchable } from "react-native-web";
 
 const ExerciseInformation = () => {
   return (
