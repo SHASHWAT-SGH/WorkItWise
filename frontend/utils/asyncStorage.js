@@ -13,6 +13,7 @@ const getAsyncData = async (key) => {
     const value = await AsyncStorage.getItem(key);
     if (value !== null) {
       // value previously stored
+      return value;
     }
   } catch (e) {
     // error reading value
@@ -20,4 +21,12 @@ const getAsyncData = async (key) => {
   }
 };
 
-export { storeAsyncData, getAsyncData };
+const removeAsyncData = async (key) => {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (e) {
+    console.error("Error in async storage");
+  }
+};
+
+export { storeAsyncData, getAsyncData, removeAsyncData };

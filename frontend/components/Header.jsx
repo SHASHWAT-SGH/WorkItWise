@@ -5,7 +5,7 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import colors from "../global/colors";
 import globalStyles from "../global/styles";
@@ -15,6 +15,10 @@ import {
 } from "react-native-responsive-screen";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { getAsyncData, removeAsyncData } from "../utils/asyncStorage";
+import keys from "../global/asyncStorage";
+import { AuthContext } from "../contexts/AuthContext";
+import { useToast } from "react-native-toast-notifications";
 
 const Header = ({
   showMenu,
@@ -23,6 +27,8 @@ const Header = ({
   showAddBtn,
   showSearchBtn,
 }) => {
+  const toast = useToast();
+  const { setIsAuthenticated } = useContext(AuthContext);
   return (
     <View style={styles.navBar}>
       {/* menu icon or back button*/}
@@ -36,7 +42,7 @@ const Header = ({
           </View>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity style={styles.navBtn} onPress={console.log("back")}>
+        <TouchableOpacity style={styles.navBtn}>
           <View>
             <Ionicons name="arrow-back" size={hp(3.4)} color={colors.white} />
           </View>
@@ -48,9 +54,18 @@ const Header = ({
       </View>
       {/* User Icon */}
       {showUserIcon ? (
-        <View style={styles.userNameIcon}>
+        <TouchableOpacity
+          style={styles.userNameIcon}
+          onPress={() => {
+            removeAsyncData(keys.AUTH_TOKEN);
+            setIsAuthenticated(false);
+            toast.show("Logout Success.", {
+              type: "success",
+            });
+          }}
+        >
           <Text style={[styles.userNameLetter]}>S</Text>
-        </View>
+        </TouchableOpacity>
       ) : null}
       {/* Search button */}
       {showSearchBtn ? (

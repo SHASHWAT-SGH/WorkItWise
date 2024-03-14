@@ -16,8 +16,9 @@ import { axiosInstance, setAxiosAuthToken } from "../utils/axiosInstance";
 import MySafeAreaView from "../components/MySafeAreaView";
 import globalStyles from "../global/styles";
 import authenticationApi from "../apis/authentication";
-import { storeAsyncData } from "../utils/asyncStorage";
+import { removeAsyncData, storeAsyncData } from "../utils/asyncStorage";
 import { useToast } from "react-native-toast-notifications";
+import keys from "../global/asyncStorage";
 
 const LoginScreen = ({ navigation }) => {
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -50,13 +51,14 @@ const LoginScreen = ({ navigation }) => {
           console.log(res.data);
           const token = res.data.token;
           setAxiosAuthToken(token);
-          storeAsyncData("AUTH_TOKEN", token);
+          storeAsyncData(keys.AUTH_TOKEN, token);
           setIsAuthenticated(true);
           navigation.replace("homeScreen");
         }
       })
       .catch((error) => {
         setIsAuthenticated(false);
+        removeAsyncData(keys.AUTH_TOKEN);
         console.error(error.response.data);
         const response = error.response.data;
         if (typeof response === "object") {

@@ -11,13 +11,14 @@ import React, { useContext, useState } from "react";
 import colors from "../global/colors";
 import { Image } from "expo-image";
 import useAuth, { AuthContext } from "../contexts/AuthContext";
-import { storeAsyncData } from "../utils/asyncStorage";
+import { removeAsyncData, storeAsyncData } from "../utils/asyncStorage";
 import MySafeAreaView from "../components/MySafeAreaView";
 import globalStyles from "../global/styles";
 import authenticationApi from "../apis/authentication";
 import { useToast } from "react-native-toast-notifications";
 // axios
 import { axiosInstance, setAxiosAuthToken } from "../utils/axiosInstance";
+import keys from "../global/asyncStorage";
 
 const SignUpScreen = ({ navigation }) => {
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -56,14 +57,14 @@ const SignUpScreen = ({ navigation }) => {
           });
           const token = res.data.token;
           setAxiosAuthToken(token);
-          storeAsyncData("AUTH_TOKEN", token);
+          storeAsyncData(keys.AUTH_TOKEN, token);
           setIsAuthenticated(true);
-          navigation.pop();
           navigation.replace("homeScreen");
         }
       })
       .catch((error) => {
         setIsAuthenticated(false);
+        removeAsyncData(keys.AUTH_TOKEN);
         const response = error.response.data;
         if (typeof response === "object") {
           Object.keys(response).forEach((key) => {
