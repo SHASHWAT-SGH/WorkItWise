@@ -31,6 +31,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import TutorialScreen from "./screens/TutorialScreen";
 import colors from "./global/colors";
 import MainAppNavigation from "./navigations/MainAppNavigation";
+import { AuthProvider } from "./contexts/AuthContext";
 
 export default function App() {
   const windowHeight = useWindowDimensions().height;
@@ -74,10 +75,12 @@ export default function App() {
           <MaterialIcons name="error-outline" size={24} color={colors.white} />
         }
       >
-        <NavigationContainer>
-          <AuthenticationNavigation />
-        </NavigationContainer>
-        {/* <TutorialScreen /> */}
+        <AuthProvider>
+          <NavigationContainer>
+            <AuthenticationNavigation />
+          </NavigationContainer>
+          {/* <TutorialScreen /> */}
+        </AuthProvider>
         <StatusBar style="light" />
       </ToastProvider>
     </LinearGradient>

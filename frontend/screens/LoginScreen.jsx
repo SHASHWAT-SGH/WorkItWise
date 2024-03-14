@@ -7,10 +7,10 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import colors from "../global/colors";
 import { Image } from "expo-image";
-import useAuth from "../contexts/AuthContext";
+import useAuth, { AuthContext } from "../contexts/AuthContext";
 // axios
 import { axiosInstance, setAxiosAuthToken } from "../utils/axiosInstance";
 import MySafeAreaView from "../components/MySafeAreaView";
@@ -20,7 +20,8 @@ import { storeAsyncData } from "../utils/asyncStorage";
 import { useToast } from "react-native-toast-notifications";
 
 const LoginScreen = ({ navigation }) => {
-  const { setIsAuthenticated } = useAuth();
+  const { setIsAuthenticated } = useContext(AuthContext);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
@@ -55,6 +56,7 @@ const LoginScreen = ({ navigation }) => {
         }
       })
       .catch((error) => {
+        setIsAuthenticated(false);
         console.error(error.response.data);
         const response = error.response.data;
         if (typeof response === "object") {
