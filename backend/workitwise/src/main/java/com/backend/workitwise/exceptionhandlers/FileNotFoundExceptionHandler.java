@@ -19,4 +19,5 @@ public class FileNotFoundExceptionHandler extends ResponseEntityExceptionHandler
 
         return handleExceptionInternal(exception,"The asset you are looking for is not available." , new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
+
 }
