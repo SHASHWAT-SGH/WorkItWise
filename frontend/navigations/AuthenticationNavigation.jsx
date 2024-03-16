@@ -33,6 +33,7 @@ const AuthenticationNavigation = () => {
       ) : (
         <>
           <Stack.Screen name="homeScreen" component={MainAppNavigation} />
+          <Stack.Screen name="exerciseList" component={ExerciseList} />
           <Stack.Screen
             name="exerciseInformation"
             component={ExerciseInformation}

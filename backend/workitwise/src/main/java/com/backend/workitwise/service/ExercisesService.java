@@ -4,6 +4,7 @@ import com.backend.workitwise.dto.ExerciseInformationResponse;
 import com.backend.workitwise.dto.globalResponse.GlobalListResponse;
 import com.backend.workitwise.model.Exercises;
 import com.backend.workitwise.projections.ExerciseInformation;
+import com.backend.workitwise.projections.ExerciseInformationBasic;
 import com.backend.workitwise.repository.ExerciseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,17 @@ public class ExercisesService {
                 .size(list.size())
                 .data(list)
                 .build();
+    }
+
+    public GlobalListResponse<ExerciseInformationBasic> getExerciseBasicDetailsByCategory(String category) {
+    List<ExerciseInformationBasic> list = exerciseRepository.getExercisesBasicDetailsByCategory(category);
+    return GlobalListResponse.<ExerciseInformationBasic>builder()
+            .size(list.size())
+            .data(list)
+            .build();
+    }
+
+    public ExerciseInformation getExerciseDetailsByExerciseId(Integer exerciseId) {
+        return exerciseRepository.getExercisesByExerciseId(exerciseId).get(0);
     }
 }

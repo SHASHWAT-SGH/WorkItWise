@@ -5,7 +5,7 @@ import {
   View,
   RefreshControl,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Header from "../components/Header";
 import MySafeAreaView from "../components/MySafeAreaView";
 import Card from "../components/categories/Card";
@@ -15,38 +15,48 @@ import {
 } from "react-native-responsive-screen";
 import colors from "../global/colors";
 import DrawerScreenWrapper from "../wrappers/DrawerScreenWrapper";
+import { axiosInstance } from "../utils/axiosInstance";
+import categoryApi from "../apis/category";
+import { AuthContext } from "../contexts/AuthContext";
+import { removeAsyncData } from "../utils/asyncStorage";
+import keys from "../global/asyncStorage";
+import { useToast } from "react-native-toast-notifications";
+import { checkJwtError } from "../utils/checkJwtError";
 
-// import { useToast } from "react-native-toast-notifications";
+const CategoryScreen = ({ navigation }) => {
+  const [refreshing, setRefreshing] = useState(false);
+  const [data, setData] = useState(null);
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const toast = useToast();
 
-const CategoryScreen = () => {
-  // const toast = useToast();
-  // useEffect(() => {
-  //   toast.show("Hello World", {
-  //     type: "success",
-  //     placement: "bottom",
-  //     duration: 4000,
-  //     offset: 30,
-  //     animationType: "slide-in",
-  //   });
-  // }, []);
+  const fetchData = async () => {
+    await axiosInstance
+      .get(categoryApi.GET_ALL_CATEGORIES_API)
+      .then((res) => {
+        if (res.status === 200) {
+          setData(res.data);
+          setRefreshing(false);
+        }
+      })
+      .catch((err) => {
+        checkJwtError(err, setIsAuthenticated, toast);
+        console.log(err);
+      });
+  };
 
-  const [refreshing, setRefreshing] = React.useState(false);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
+    fetchData();
   }, []);
 
   return (
     <DrawerScreenWrapper>
       <MySafeAreaView>
-        <Header
-          screenName={"Categories"}
-          showAddBtn={true}
-          showSearchBtn={true}
-        />
+        <Header screenName={"Categories"} showAddBtn={true} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           refreshControl={
@@ -54,24 +64,23 @@ const CategoryScreen = () => {
               refreshing={refreshing}
               onRefresh={onRefresh}
               colors={[colors.dark1]}
-              progressBackgroundColor={colors.links}
+              progressBackgroundColor={colors.dimWhite}
               progressViewOffset={20}
             />
           }
         >
           <View style={styles.container}>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            {data
+              ? data.data.map((item) => {
+                  return (
+                    <Card
+                      key={item.categoryId}
+                      name={item.category}
+                      imgUrl={item.imageUrl}
+                    />
+                  );
+                })
+              : null}
           </View>
         </ScrollView>
       </MySafeAreaView>

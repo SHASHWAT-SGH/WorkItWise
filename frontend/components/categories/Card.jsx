@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import {
   widthPercentageToDP as wp,
@@ -7,20 +7,32 @@ import {
 import colors from "../../global/colors";
 import globalStyles from "../../global/styles";
 import { Image } from "expo-image";
+import { mediaApi } from "../../apis/media";
+import { useNavigation } from "@react-navigation/native";
 
-const Card = () => {
+const Card = ({ imgUrl, name }) => {
+  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate("exerciseList", {
+          category: name,
+        });
+      }}
+    >
       <View style={styles.imageHolder}>
         <Image
-          source={require("../../assets/extras/chest.png")}
+          source={
+            mediaApi.CATEGORY_IMAGE_API + "/" + imgUrl.split("/")[1] + ".png"
+          }
           style={styles.image}
         />
       </View>
       <View style={styles.nameHolder}>
-        <Text style={styles.text}>Card</Text>
+        <Text style={styles.text}>{name}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -35,11 +47,9 @@ const styles = StyleSheet.create({
     padding: wp(2),
   },
   imageHolder: {
-    // backgroundColor: "white",
     flex: 4.2,
   },
   nameHolder: {
-    // backgroundColor: "green",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -48,10 +58,9 @@ const styles = StyleSheet.create({
     fontFamily: globalStyles.fonts.font_500,
     fontSize: hp(2),
     color: colors.white,
+    textTransform: "capitalize",
   },
   image: {
     flex: 1,
-    // width: "100%",
-    // backgroundColor: "red",
   },
 });

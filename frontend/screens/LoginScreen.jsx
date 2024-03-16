@@ -38,6 +38,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const handleLogin = async () => {
+    setAxiosAuthToken(null);
     await axiosInstance
       .post(authenticationApi.LOGIN_API, {
         email: username,

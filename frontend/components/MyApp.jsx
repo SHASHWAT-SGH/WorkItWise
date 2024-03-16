@@ -28,20 +28,37 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { getAsyncData } from "../utils/asyncStorage";
 import keys from "../global/asyncStorage";
+import { setAxiosAuthToken } from "../utils/axiosInstance";
+import { ExerciseInfoContext } from "../contexts/ExerciseInfoContext";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 export default function MyApp() {
   const { setIsAuthenticated } = useContext(AuthContext);
+  const { setExerciseInformation, setCategoryInformation } =
+    useContext(ExerciseInfoContext);
   // splash screen configuration
   const [appIsReady, setAppIsReady] = useState(false);
   useEffect(() => {
     async function prepare() {
       try {
+        await new Promise((resolve) => setTimeout(resolve, 4000));
         const authToken = await getAsyncData(keys.AUTH_TOKEN);
         authToken ? setIsAuthenticated(true) : setIsAuthenticated(false);
-        await new Promise((resolve) => setTimeout(resolve, 4000));
+        setAxiosAuthToken(authToken);
+        const categoryDetails = JSON.parse(
+          await getAsyncData(keys.CATEGORY_INFO)
+        );
+        categoryDetails
+          ? setCategoryInformation(categoryDetails)
+          : setCategoryInformation(null);
+        const exerciseDetails = JSON.parse(
+          await getAsyncData(keys.EXERCISE_INFO)
+        );
+        exerciseDetails
+          ? setExerciseInformation(exerciseDetails)
+          : setExerciseInformation(null);
       } catch (e) {
         console.warn(e);
       } finally {

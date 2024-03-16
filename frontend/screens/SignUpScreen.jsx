@@ -43,6 +43,7 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   const handleSignup = async () => {
+    setAxiosAuthToken(null);
     await axiosInstance
       .post(authenticationApi.SIGNUP_API, {
         firstname: fname,

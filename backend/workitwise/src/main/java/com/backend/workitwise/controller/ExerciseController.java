@@ -4,6 +4,7 @@ import com.backend.workitwise.dto.ExerciseInformationResponse;
 import com.backend.workitwise.dto.globalResponse.GlobalListResponse;
 import com.backend.workitwise.model.Exercises;
 import com.backend.workitwise.projections.ExerciseInformation;
+import com.backend.workitwise.projections.ExerciseInformationBasic;
 import com.backend.workitwise.service.ExercisesService;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -36,5 +37,15 @@ public class ExerciseController {
     @GetMapping("/get/exercise/by/name/like/{name}")
     public ResponseEntity<GlobalListResponse<ExerciseInformation>> getExerciseByName(@NotNull @PathVariable String name){
         return new ResponseEntity<>(exercisesService.getExerciseByName(name), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/exercise/basic/by/category/{category}")
+    public ResponseEntity<GlobalListResponse<ExerciseInformationBasic>> getExerciseBasicDetailsByCategory(@PathVariable String category){
+        return new ResponseEntity<>(exercisesService.getExerciseBasicDetailsByCategory(category), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/exercise/by/id/{exerciseId}")
+    public ResponseEntity<ExerciseInformation> getExerciseDetailsByExerciseId(@PathVariable Integer exerciseId){
+        return new ResponseEntity<>(exercisesService.getExerciseDetailsByExerciseId(exerciseId), HttpStatus.OK);
     }
 }

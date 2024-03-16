@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import colors from "../global/colors";
@@ -19,6 +13,7 @@ import { getAsyncData, removeAsyncData } from "../utils/asyncStorage";
 import keys from "../global/asyncStorage";
 import { AuthContext } from "../contexts/AuthContext";
 import { useToast } from "react-native-toast-notifications";
+import { useNavigation } from "@react-navigation/native";
 
 const Header = ({
   showMenu,
@@ -29,11 +24,17 @@ const Header = ({
 }) => {
   const toast = useToast();
   const { setIsAuthenticated } = useContext(AuthContext);
+  const navigation = useNavigation();
   return (
     <View style={styles.navBar}>
       {/* menu icon or back button*/}
       {showMenu ? (
-        <TouchableOpacity style={styles.navBtn}>
+        <TouchableOpacity
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.openDrawer();
+          }}
+        >
           <View style={styles.menuIcon}>
             <FontAwesome name="square" size={12} color={colors.white} />
             <FontAwesome name="square" size={12} color={colors.white} />
@@ -42,7 +43,12 @@ const Header = ({
           </View>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity style={styles.navBtn}>
+        <TouchableOpacity
+          style={styles.navBtn}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
           <View>
             <Ionicons name="arrow-back" size={hp(3.4)} color={colors.white} />
           </View>
@@ -69,25 +75,19 @@ const Header = ({
       ) : null}
       {/* Search button */}
       {showSearchBtn ? (
-        <Pressable
-          android_ripple={{ color: colors.white, radius: 15 }}
-          style={styles.navBtn}
-        >
+        <TouchableOpacity style={styles.navBtn}>
           <View style={{ marginRight: wp(2) }}>
             <MaterialIcons name="search" size={hp(3.4)} color={colors.white} />
           </View>
-        </Pressable>
+        </TouchableOpacity>
       ) : null}
       {/* Add button */}
       {showAddBtn ? (
-        <Pressable
-          android_ripple={{ color: colors.white, radius: 15 }}
-          style={styles.navBtn}
-        >
+        <TouchableOpacity style={styles.navBtn}>
           <View>
             <MaterialIcons name="add" size={hp(3.4)} color={colors.white} />
           </View>
-        </Pressable>
+        </TouchableOpacity>
       ) : null}
     </View>
   );

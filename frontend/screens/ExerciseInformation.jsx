@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MySafeAreaView from "../components/MySafeAreaView";
 import Header from "../components/Header";
 import { Image } from "expo-image";
@@ -15,70 +15,91 @@ import {
 } from "react-native-responsive-screen";
 import colors from "../global/colors";
 import globalStyles from "../global/styles";
+import { axiosInstance } from "../utils/axiosInstance";
+import exerciseApi from "../apis/exerciseInfo";
+import { mediaApi } from "../apis/media";
 
-const ExerciseInformation = () => {
+const ExerciseInformation = ({ route }) => {
+  const { exerciseId } = route.params;
+  const [data, setData] = useState(null);
+
+  const fetchExerciseInfo = async () => {
+    await axiosInstance
+      .get(
+        exerciseApi.GET_EXERCISE_INFORMATION_BY_EXERCISE_ID + `/${exerciseId}`
+      )
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchExerciseInfo();
+  }, []);
+
   return (
     <MySafeAreaView>
-      <Header screenName={"Exercise"} />
+      <Header screenName={data?.exerciseName} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image
-              source={require("../assets/extras/17barbellwidebenchpress.gif")}
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.infoContainer}>
-            <View style={styles.wrapper}>
-              <View style={styles.headingContainer}>
-                <Text style={styles.header}>Muscles involved</Text>
-              </View>
-              <View style={styles.muscleWrapper}>
-                <View
-                  style={[styles.block, { backgroundColor: colors.yellow1 }]}
-                >
-                  <Text style={styles.muscleName}>Letis</Text>
-                </View>
-                <View style={styles.block}>
-                  <Text style={styles.muscleName}>Letis</Text>
-                </View>
-                <View style={styles.block}>
-                  <Text style={styles.muscleName}>Letis</Text>
-                </View>
-                <View style={styles.block}>
-                  <Text style={styles.muscleName}>Letis</Text>
-                </View>
-                <View style={styles.block}>
-                  <Text style={styles.muscleName}>Letis</Text>
-                </View>
-                <View style={styles.block}>
-                  <Text style={styles.muscleName}>Letis</Text>
-                </View>
-                <View style={styles.block}>
-                  <Text style={styles.muscleName}>Letis</Text>
-                </View>
-                <View style={styles.block}>
-                  <Text style={styles.muscleName}>Letis</Text>
-                </View>
-              </View>
+        {data && (
+          <View style={styles.container}>
+            <View style={styles.imageContainer}>
+              <Image
+                source={
+                  mediaApi.EXERCISE_GIF +
+                  `/${data.gifUrl.split("/")[0]}/${
+                    data.gifUrl.split("/")[1]
+                  }.gif`
+                }
+                style={styles.image}
+              />
             </View>
-            <View style={styles.wrapper}>
-              <View style={styles.headingContainer}>
-                <Text style={styles.header}>Steps</Text>
+            <View style={styles.infoContainer}>
+              <View style={styles.wrapper}>
+                <View style={styles.headingContainer}>
+                  <Text style={styles.header}>Muscles involved</Text>
+                </View>
+                <View style={styles.muscleWrapper}>
+                  {/* target muscle */}
+                  <View
+                    style={[styles.block, { backgroundColor: colors.yellow1 }]}
+                  >
+                    <Text style={styles.muscleName}>
+                      {data.targetMuscle.muscle}
+                    </Text>
+                  </View>
+                  {/* secondary muscles */}
+                  {data.secondaryMuscles.length !== 0 &&
+                    data.secondaryMuscles.map(({ item, index }) => {
+                      return (
+                        <View style={styles.block} key={index}>
+                          <Text style={styles.muscleName}>{item.muscle}</Text>
+                        </View>
+                      );
+                    })}
+                </View>
               </View>
-              <View style={styles.exerciseInfoStepsWrapper}>
-                <Text style={styles.step}>1. Go and pick up dubmel.</Text>
-                <Text style={styles.step}>2. Hold your shoulder up.</Text>
-                <Text style={styles.step}>3. Do bench press.</Text>
+              <View style={styles.wrapper}>
+                <View style={styles.headingContainer}>
+                  <Text style={styles.header}>Steps</Text>
+                </View>
+                <View style={styles.exerciseInfoStepsWrapper}>
+                  <Text style={styles.step}>1. Go and pick up dubmel.</Text>
+                  <Text style={styles.step}>2. Hold your shoulder up.</Text>
+                  <Text style={styles.step}>3. Do bench press.</Text>
+                </View>
               </View>
-            </View>
-            <View style={styles.addWorkout}>
-              <TouchableOpacity>
-                <Text style={styles.btn}>Add to workout</Text>
-              </TouchableOpacity>
+              <View style={styles.addWorkout}>
+                <TouchableOpacity>
+                  <Text style={styles.btn}>Add to workout</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
+        )}
       </ScrollView>
     </MySafeAreaView>
   );
@@ -133,6 +154,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontFamily: globalStyles.fonts.font_500,
     fontSize: hp(2.2),
+    textTransform: "capitalize",
   },
   exerciseInfoStepsWrapper: {},
   step: {

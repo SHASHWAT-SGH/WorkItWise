@@ -1,6 +1,8 @@
 const keys = {
   AUTH_TOKEN: "AUTH_TOKEN",
   USER_DETAILS: "USER_DETAILS",
+  CATEGORY_INFO: "CATEGORY_INFO",
+  EXERCISE_INFO: "EXERCISE_INFO",
 };
 
 export default keys;

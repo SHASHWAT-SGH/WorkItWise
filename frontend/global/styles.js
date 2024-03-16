@@ -25,6 +25,7 @@ const globalStyles = {
     fontFamily: "Rubik_500Medium",
     fontSize: hp(2.4),
     color: colors.white,
+    textTransform: "capitalize",
   },
 };
 
