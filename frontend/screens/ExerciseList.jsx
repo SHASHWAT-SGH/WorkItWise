@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import MySafeAreaView from "../components/MySafeAreaView";
 import Header from "../components/Header";
 import colors from "../global/colors";
@@ -20,9 +20,17 @@ import { axiosInstance } from "../utils/axiosInstance";
 import exerciseApi from "../apis/exerciseInfo";
 import { mediaApi } from "../apis/media";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
+import MyBottomSheet from "../components/bottomSheet/MyBottomSheet";
+import { Entypo } from "@expo/vector-icons";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
-const Card = ({ gifUrl, name, exerciseId }) => {
+const Card = ({ gifUrl, name, exerciseId, showAddBtn, bottomSheetRef }) => {
   const navigation = useNavigation();
+
+  const handleAddBtnPress = () => {
+    bottomSheetRef.current?.expand();
+  };
   return (
     <TouchableOpacity
       style={cardStyle.wrapper}
@@ -47,13 +55,23 @@ const Card = ({ gifUrl, name, exerciseId }) => {
           {name}
         </Text>
       </View>
+      {showAddBtn && (
+        <View style={cardStyle.extremeRight}>
+          <TouchableOpacity
+            style={cardStyle.addBtn}
+            onPress={handleAddBtnPress}
+          >
+            <MaterialIcons name="add" size={hp(3.4)} color={colors.white} />
+          </TouchableOpacity>
+        </View>
+      )}
     </TouchableOpacity>
   );
 };
 
 const ExerciseList = ({ route }) => {
   const [data, setData] = useState(null);
-  const { category } = route.params;
+  const { category, showAddBtn } = route.params;
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -77,6 +95,8 @@ const ExerciseList = ({ route }) => {
     fetchBasicExerciseInfo();
   }, []);
 
+  const bottomSheetRef = useRef(null);
+
   return (
     <MySafeAreaView>
       <Header screenName={category} showSearchBtn={true} showAddBtn={true} />
@@ -94,11 +114,93 @@ const ExerciseList = ({ route }) => {
                 gifUrl={item.gifUrl}
                 name={item.exerciseName}
                 exerciseId={item.exerciseId}
+                showAddBtn={showAddBtn}
+                bottomSheetRef={bottomSheetRef}
               />
             )}
           />
         )}
       </View>
+      {/* bottom sheet */}
+      <MyBottomSheet bottomSheetRef={bottomSheetRef}>
+        <View>
+          {/* layer 1  */}
+          <View style={bottomSheetStyle.exerciseInfo}>
+            <View style={bottomSheetStyle.exerciseInfoLeft}>
+              <Image
+                source={
+                  "https://user-images.githubusercontent.com/14011726/94132137-7d4fc100-fe7c-11ea-8512-69f90cb65e48.gif"
+                }
+                style={bottomSheetStyle.image}
+              />
+            </View>
+            <View style={bottomSheetStyle.exerciseInfoRight}>
+              <Text style={bottomSheetStyle.heading}>
+                alternate lateral pulldown
+              </Text>
+            </View>
+          </View>
+          {/* layer 2 */}
+          <View style={bottomSheetStyle.layer2Container}>
+            {/* Input field with name at top*/}
+            <View style={bottomSheetStyle.smallContainers}>
+              <View style={bottomSheetStyle.top}>
+                <Text style={bottomSheetStyle.text}>Weight</Text>
+              </View>
+              <View style={bottomSheetStyle.bottom}>
+                <BottomSheetTextInput
+                  inputMode="numeric"
+                  placeholder="0"
+                  placeholderTextColor={colors.white}
+                  style={bottomSheetStyle.input}
+                />
+              </View>
+            </View>
+            {/* Multiply Sign */}
+            <View style={bottomSheetStyle.multiplyContainer}>
+              <Entypo name="cross" size={24} color={colors.white} />
+            </View>
+            {/* Input field with name at top*/}
+            <View style={bottomSheetStyle.smallContainers}>
+              <View style={bottomSheetStyle.top}>
+                <Text style={bottomSheetStyle.text}>Reps</Text>
+              </View>
+              <View style={bottomSheetStyle.bottom}>
+                <BottomSheetTextInput
+                  inputMode="numeric"
+                  placeholder="0"
+                  placeholderTextColor={colors.white}
+                  style={bottomSheetStyle.input}
+                />
+              </View>
+            </View>
+            {/* Multiply Sign */}
+            <View style={bottomSheetStyle.multiplyContainer}>
+              <Entypo name="cross" size={24} color={colors.white} />
+            </View>
+            {/* Input field with name at top*/}
+            <View style={bottomSheetStyle.smallContainers}>
+              <View style={bottomSheetStyle.top}>
+                <Text style={bottomSheetStyle.text}>Set</Text>
+              </View>
+              <View style={bottomSheetStyle.bottom}>
+                <BottomSheetTextInput
+                  inputMode="numeric"
+                  placeholder="0"
+                  placeholderTextColor={colors.white}
+                  style={bottomSheetStyle.input}
+                />
+              </View>
+            </View>
+          </View>
+          {/* Footer */}
+          <View style={bottomSheetStyle.footer}>
+            <TouchableOpacity style={bottomSheetStyle.addBtnFooter}>
+              <Text style={bottomSheetStyle.addBtnFooterText}>Add</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </MyBottomSheet>
     </MySafeAreaView>
   );
 };
@@ -141,5 +243,101 @@ const cardStyle = StyleSheet.create({
     fontFamily: globalStyles.fonts.font_400,
     color: colors.white,
     textTransform: "capitalize",
+  },
+  extremeRight: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  addBtn: {
+    backgroundColor: colors.dark3,
+    padding: hp(0.4),
+    borderRadius: hp(1),
+  },
+});
+
+const bottomSheetStyle = StyleSheet.create({
+  exerciseInfo: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: colors.dimWhite,
+    paddingBottom: wp(1.3),
+    flexDirection: "row",
+  },
+  exerciseInfoLeft: {
+    // backgroundColor: "red",
+    // height: 50,
+    flex: 1,
+    justifyContent: "center",
+  },
+  exerciseInfoRight: {
+    // backgroundColor: "green",
+    // height: 50,
+    flex: 3.5,
+    justifyContent: "center",
+    paddingLeft: wp(3),
+  },
+  image: {
+    // alignSelf: "center",
+    width: hp(9),
+    height: hp(9),
+    borderRadius: hp(1),
+  },
+  heading: {
+    color: colors.white,
+    fontFamily: globalStyles.fonts.font_400,
+    textTransform: "capitalize",
+    fontSize: hp(2.2),
+  },
+  layer2Container: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: wp(5),
+  },
+  smallContainers: {
+    // backgroundColor: "red",
+    // width: 50,
+    // height: 50,
+    gap: hp(1),
+  },
+  multiplyContainer: {
+    // backgroundColor: "green",
+    justifyContent: "center",
+    marginTop: hp(2.8),
+  },
+  top: {
+    alignItems: "center",
+  },
+  bottom: {},
+  text: {
+    fontFamily: globalStyles.fonts.font_400,
+    fontSize: hp(2),
+    color: colors.white,
+  },
+  input: {
+    backgroundColor: colors.dark3,
+    borderRadius: hp(1),
+    width: wp(16),
+    height: wp(12),
+    textAlign: "center",
+    color: colors.white,
+    fontFamily: globalStyles.fonts.font_400,
+    fontSize: hp(3),
+  },
+  footer: {
+    // backgroundColor: "red",
+    marginTop: wp(4),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  addBtnFooter: {
+    backgroundColor: colors.white,
+    padding: wp(2),
+    paddingHorizontal: wp(30),
+    borderRadius: hp(1),
+  },
+  addBtnFooterText: {
+    fontSize: hp(2.2),
+    fontFamily: globalStyles.fonts.font_500,
+    color: colors.dark2,
   },
 });

@@ -18,6 +18,7 @@ const Card = ({ imgUrl, name }) => {
       onPress={() => {
         navigation.navigate("exerciseList", {
           category: name,
+          showAddBtn: true,
         });
       }}
     >

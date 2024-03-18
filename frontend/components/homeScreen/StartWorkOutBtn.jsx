@@ -9,14 +9,20 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import colors from "../../global/colors";
 import globalStyles from "../../global/styles";
+import { useNavigation } from "@react-navigation/native";
 
 const StartWorkOutBtn = () => {
   const { width } = Dimensions.get("window");
-
+  const navigation = useNavigation();
   return (
     <>
       <View style={[styles.container, { width: width }]}>
-        <TouchableOpacity style={styles.btn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            navigation.navigate("startWorkout");
+          }}
+        >
           <Text style={styles.text}>Start Workout</Text>
         </TouchableOpacity>
         <LinearGradient

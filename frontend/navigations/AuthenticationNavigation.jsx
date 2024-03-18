@@ -7,9 +7,11 @@ import HomeScreen from "../screens/HomeScreen";
 import colors from "../global/colors";
 import CategoryScreen from "../screens/CategoryScreen";
 import ExerciseInformation from "../screens/ExerciseInformation";
+import StartWorkoutScreen from "../screens/StartWorkoutScreen";
 import ExerciseList from "../screens/ExerciseList";
 import MainAppNavigation from "./MainAppNavigation";
 import { AuthContext } from "../contexts/AuthContext";
+import StackCategoryScreen from "../screens/StackCategoryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +39,11 @@ const AuthenticationNavigation = () => {
           <Stack.Screen
             name="exerciseInformation"
             component={ExerciseInformation}
+          />
+          <Stack.Screen name="startWorkout" component={StartWorkoutScreen} />
+          <Stack.Screen
+            name="StackCategoryScreen"
+            component={StackCategoryScreen}
           />
         </>
       )}

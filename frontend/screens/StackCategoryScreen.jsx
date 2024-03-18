@@ -23,7 +23,7 @@ import keys from "../global/asyncStorage";
 import { useToast } from "react-native-toast-notifications";
 import { checkJwtError } from "../utils/checkJwtError";
 
-const CategoryScreen = () => {
+const StackCategoryScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState(null);
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -54,7 +54,7 @@ const CategoryScreen = () => {
   }, []);
 
   return (
-    <DrawerScreenWrapper>
+    <>
       <MySafeAreaView>
         <Header screenName={"Categories"} showAddBtn={true} />
         <ScrollView
@@ -63,8 +63,6 @@ const CategoryScreen = () => {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              colors={[colors.dark1]}
-              progressBackgroundColor={colors.dimWhite}
               progressViewOffset={20}
             />
           }
@@ -84,11 +82,11 @@ const CategoryScreen = () => {
           </View>
         </ScrollView>
       </MySafeAreaView>
-    </DrawerScreenWrapper>
+    </>
   );
 };
 
-export default CategoryScreen;
+export default StackCategoryScreen;
 
 const styles = StyleSheet.create({
   container: {

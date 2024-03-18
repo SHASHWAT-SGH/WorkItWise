@@ -30,6 +30,7 @@ import { getAsyncData } from "../utils/asyncStorage";
 import keys from "../global/asyncStorage";
 import { setAxiosAuthToken } from "../utils/axiosInstance";
 import { ExerciseInfoContext } from "../contexts/ExerciseInfoContext";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -105,33 +106,39 @@ export default function MyApp() {
   // over
 
   return (
-    <LinearGradient
-      colors={["#0e0b31", "#0c0a15"]}
-      style={[
-        styles.container,
-        // { minHeight: Math.round(windowHeight) }
-      ]}
-      start={{ x: 0, y: 0.03 }}
-      end={{ x: 0.32, y: 0.32 }}
-      onLayout={onLayoutRootView}
-    >
-      <ToastProvider
-        placement="bottom"
-        duration={5000}
-        animationType="slide-in"
-        offset={50}
-        swipeEnabled={true}
-        dangerIcon={
-          <MaterialIcons name="error-outline" size={24} color={colors.white} />
-        }
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <LinearGradient
+        colors={["#0e0b31", "#0c0a15"]}
+        style={[
+          styles.container,
+          // { minHeight: Math.round(windowHeight) }
+        ]}
+        start={{ x: 0, y: 0.03 }}
+        end={{ x: 0.32, y: 0.32 }}
+        onLayout={onLayoutRootView}
       >
-        <NavigationContainer>
-          <AuthenticationNavigation />
-        </NavigationContainer>
-        {/* <TutorialScreen /> */}
-        <StatusBar style="light" />
-      </ToastProvider>
-    </LinearGradient>
+        <ToastProvider
+          placement="bottom"
+          duration={5000}
+          animationType="slide-in"
+          offset={50}
+          swipeEnabled={true}
+          dangerIcon={
+            <MaterialIcons
+              name="error-outline"
+              size={24}
+              color={colors.white}
+            />
+          }
+        >
+          <NavigationContainer>
+            <AuthenticationNavigation />
+          </NavigationContainer>
+          {/* <TutorialScreen /> */}
+          <StatusBar style="light" />
+        </ToastProvider>
+      </LinearGradient>
+    </GestureHandlerRootView>
   );
 }
 
