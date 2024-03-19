@@ -24,6 +24,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import MyBottomSheet from "../components/bottomSheet/MyBottomSheet";
 import { Entypo } from "@expo/vector-icons";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import { Picker } from "@react-native-picker/picker";
 
 const Card = ({ gifUrl, name, exerciseId, showAddBtn, bottomSheetRef }) => {
   const navigation = useNavigation();
@@ -97,6 +98,8 @@ const ExerciseList = ({ route }) => {
 
   const bottomSheetRef = useRef(null);
 
+  const [selectedLanguage, setSelectedLanguage] = useState();
+
   return (
     <MySafeAreaView>
       <Header screenName={category} showSearchBtn={true} showAddBtn={true} />
@@ -123,7 +126,7 @@ const ExerciseList = ({ route }) => {
       </View>
       {/* bottom sheet */}
       <MyBottomSheet bottomSheetRef={bottomSheetRef}>
-        <View>
+        <View style={bottomSheetStyle.container}>
           {/* layer 1  */}
           <View style={bottomSheetStyle.exerciseInfo}>
             <View style={bottomSheetStyle.exerciseInfoLeft}>
@@ -193,6 +196,28 @@ const ExerciseList = ({ route }) => {
               </View>
             </View>
           </View>
+          {/* layer 3 */}
+          <View style={bottomSheetStyle.layer3}>
+            <Picker
+              style={{
+                width: wp(60),
+                backgroundColor: colors.dark3,
+              }}
+              itemStyle={{
+                backgroundColor: colors.dark3,
+              }}
+              dropdownIconColor={colors.dark2}
+              selectedValue={selectedLanguage}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedLanguage(itemValue)
+              }
+              mode="dropdown"
+              dropdownIconRippleColor={"transparent"}
+            >
+              <Picker.Item label="Java" value="java" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
+          </View>
           {/* Footer */}
           <View style={bottomSheetStyle.footer}>
             <TouchableOpacity style={bottomSheetStyle.addBtnFooter}>
@@ -257,6 +282,9 @@ const cardStyle = StyleSheet.create({
 });
 
 const bottomSheetStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   exerciseInfo: {
     borderBottomWidth: 0.5,
     borderBottomColor: colors.dimWhite,
@@ -339,5 +367,11 @@ const bottomSheetStyle = StyleSheet.create({
     fontSize: hp(2.2),
     fontFamily: globalStyles.fonts.font_500,
     color: colors.dark2,
+  },
+  layer3: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: wp(2),
+    marginTop: wp(3),
   },
 });

@@ -30,7 +30,6 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> signup(@RequestBody SignupRequest request) {
         signupRequestDtoValidator.validate(request);
         return new ResponseEntity<>(authenticationService.register(request), HttpStatus.OK);
-
     }
 
 
