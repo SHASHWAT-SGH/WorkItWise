@@ -25,7 +25,7 @@ const HomeScreen = () => {
             <Greeting />
             <WeeklyWorkGraph />
             <PreviousWorkouts />
-            <WorkLoadDistribution />
+            {/* <WorkLoadDistribution /> */}
           </View>
         </ScrollView>
         <StartWorkOutBtn />

@@ -5,6 +5,7 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import { useDrawerProgress } from "@react-navigation/drawer";
+import { LinearGradient } from "expo-linear-gradient";
 
 const DrawerScreenWrapper = ({ children }) => {
   const progress = useDrawerProgress();
@@ -34,9 +35,18 @@ const DrawerScreenWrapper = ({ children }) => {
   }));
 
   return (
-    <Animated.View style={[styles.container, animatedStyle]}>
-      {children}
-    </Animated.View>
+    <LinearGradient
+      colors={["#0e0b31", "#0c0a15"]}
+      style={{
+        flex: 1,
+      }}
+      start={{ x: 0, y: 0.03 }}
+      end={{ x: 0.32, y: 0.32 }}
+    >
+      <Animated.View style={[styles.container, animatedStyle]}>
+        {children}
+      </Animated.View>
+    </LinearGradient>
   );
 };
 

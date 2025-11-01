@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: colors.dark2,
     marginLeft: "auto",
-    marginRight: 10,
   },
   userNameLetter: {
     flex: 1,

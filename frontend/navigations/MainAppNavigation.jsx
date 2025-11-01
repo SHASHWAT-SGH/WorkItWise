@@ -13,6 +13,7 @@ import {
 import CategoryScreen from "../screens/CategoryScreen";
 import { FontAwesome } from "@expo/vector-icons";
 import DiariesScreen from "../screens/DiariesScreen";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Drawer = createDrawerNavigator();
 

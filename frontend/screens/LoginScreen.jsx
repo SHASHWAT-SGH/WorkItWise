@@ -54,7 +54,7 @@ const LoginScreen = ({ navigation }) => {
           setAxiosAuthToken(token);
           storeAsyncData(keys.AUTH_TOKEN, token);
           setIsAuthenticated(true);
-          navigation.replace("homeScreen");
+          // navigation.replace("homeScreen");
         }
       })
       .catch((error) => {

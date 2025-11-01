@@ -1,2 +1,5 @@
-package com.backend.workitwise.exceptionhandlers;public class UnauthorizedExceptionHandler {
+package com.backend.workitwise.exceptionhandlers;
+
+public class UnauthorizedExceptionHandler {
+
 }

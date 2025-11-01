@@ -1,20 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import PieChart from "react-native-pie-chart";
-import globalStyles from "../../global/styles";
-import colors from "../../global/colors";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { View, Text, StyleSheet } from "react-native";
+import { PieChart } from "react-native-chart-kit";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const WorkLoadDistribution = () => {
   const widthAndHeight = wp(47);
   const series = [123, 321, 123, 789, 537];
-  const total = series.reduce((a, b) => a + b);
-
   const sliceColor = ["#fbd203", "#ffb300", "#ff9100", "#ff6c00", "#ff3c00"];
   const legends = ["back", "chest", "head", "cardio", "leg"];
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Workload Distribution</Text>
@@ -27,73 +21,57 @@ const WorkLoadDistribution = () => {
           />
         </View>
         <View style={styles.right}>
-          {legends.map((item, index) => {
-            return (
+          {legends &&
+            legends.map((item, index) => (
               <View key={index} style={styles.legendWrapper}>
                 <View
                   style={[
-                    styles.legendBox,
+                    styles.legendColor,
                     { backgroundColor: sliceColor[index] },
                   ]}
-                ></View>
-                <Text style={styles.legendText}>
-                  {item} ({Math.round((series[index] / total) * 100)} %)
-                </Text>
+                />
+                <Text style={styles.legendText}>{item}</Text>
               </View>
-            );
-          })}
+            ))}
         </View>
       </View>
     </View>
   );
 };
 
-export default WorkLoadDistribution;
-
 const styles = StyleSheet.create({
   container: {
-    marginTop: hp(4),
+    flex: 1,
+    padding: 16,
   },
   heading: {
-    color: colors.white,
-    fontSize: hp(2.8),
-    fontFamily: globalStyles.fonts.font_500,
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 16,
   },
   wrapper: {
-    backgroundColor: colors.dark2,
-    padding: wp(4),
-    borderRadius: wp(3),
-    display: "flex",
     flexDirection: "row",
-    marginTop: hp(3),
   },
   left: {
-    // backgroundColor: "red",
     flex: 1,
   },
   right: {
-    // backgroundColor: "green",
-    flex: 0.7,
-    paddingLeft: wp(20),
-    paddingTop: wp(5),
+    flex: 1,
+    justifyContent: "center",
   },
   legendWrapper: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: wp(1),
-    // backgroundColor: "green",
+    marginBottom: 8,
   },
-  legendBox: {
-    // backgroundColor: "red",
-    width: wp(3),
-    height: wp(3),
-    marginRight: wp(1.4),
+  legendColor: {
+    width: 16,
+    height: 16,
+    marginRight: 8,
   },
   legendText: {
-    color: colors.white,
-    fontSize: hp(2),
-    fontFamily: globalStyles.fonts.font_400,
-    textTransform: "capitalize",
+    fontSize: 14,
   },
 });
+
+export default WorkLoadDistribution;

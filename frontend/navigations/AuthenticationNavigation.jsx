@@ -19,7 +19,7 @@ const AuthenticationNavigation = () => {
   const { isAuthenticated } = useContext(AuthContext);
   return (
     <Stack.Navigator
-      initialRouteName="loginScreen"
+      initialRouteName={isAuthenticated ? "homeScreen" : "loginScreen"}
       screenOptions={{
         headerShown: false,
         animationTypeForReplace: "push",
